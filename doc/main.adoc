@@ -1,0 +1,20 @@
+= Apuntes de Fortran
+:source-highlighter: pygments
+:pygments-style: monokai
+:author: Samuel Gómez
+:doctype: book
+:toc:
+:icons:
+:lang: es
+:stylesheet: style1.css
+:toc-title: Índice
+
+include::boilerplate.adoc[]
+
+include::fichero_makefile.adoc[]
+
+include::tipos.adoc[]
+
+include::tools.adoc[]
+
+include::resources.adoc[]

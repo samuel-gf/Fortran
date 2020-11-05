@@ -1,0 +1,17 @@
+== Boiler plate
+
+[source,fortran] 
+--
+program Boiler_plate
+	use iso_fortran_env
+	implicit none
+
+	contains
+
+	subroutine hola_mundo
+	! Test
+	end subroutine hola_mundo
+
+end program Boiler_plate
+--
+

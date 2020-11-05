@@ -1,0 +1,11 @@
+== Tipos
+
+Estos son los tipos de variable
+
+[source,fortran] 
+--
+integer, parameter :: N = 3
+real(REAL64) :: A(N,N)
+
+A = .0_REAL64 ! Matriz de ceros
+--

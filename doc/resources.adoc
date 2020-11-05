@@ -1,0 +1,19 @@
+== Resources
+
+* http://fortranwiki.org/fortran/show/Libraries[Librerías]
+* https://ocw.unican.es/pluginfile.php/266/course/section/171/capitulo8.pdf[Entrada y salida con formato]
+* https://pages.mtu.edu/~shene/COURSES/cs201/NOTES/chap05/format.html[Format]
+* https://github.com/wvermin/findent[Identación con FIndent]
+* https://github.com/ljdursi/coarray-examples[Coarrays]
+* https://github.com/xianyi/OpenBLAS/blob/develop/README.md[Open Coarrays]
+
+=== OpenBlas
+
+Para instalar OpenBlas debes seguir los siguientes pasos
+
+Descargar fuente de https://www.mpich.org/downloads/[Mpich] y después
+
+
+. ./configure
+. make
+. sudo make install
