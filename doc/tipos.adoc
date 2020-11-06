@@ -1,11 +1,31 @@
 == Tipos
 
-Estos son los tipos de variable
+=== Tipos ISO
 
 [source,fortran] 
 --
-integer, parameter :: N = 3
-real(REAL64) :: A(N,N)
+program Tipos_iso
+	use iso_fortran_env
+	integer, parameter:: N = 3
+	real(real64):: A(N,N)
+	integer(int64):: B(N,N)
 
-A = .0_REAL64 ! Matriz de ceros
+	A = .0_real64		! Matriz de ceros reales
+	B = 0_int64		! Matriz de ceros enteros
+
+    write (*,"(3f6.1)") A	! Mostrar la matriz en tres filas y tres columnas
+    write (*,"(3i6)") B		! Mostrar la matriz en tres filas y tres columnas
+end program Tipos_iso
+--
+
+=== Tipos derivados
+
+
+[source,fortran]
+--
+type Persona
+	character(len=6)::  id
+	character(len=10):: nombre
+	real::              edad
+end type Persona
 --

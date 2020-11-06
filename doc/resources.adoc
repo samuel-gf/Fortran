@@ -3,7 +3,6 @@
 * http://fortranwiki.org/fortran/show/Libraries[Librerías]
 * https://ocw.unican.es/pluginfile.php/266/course/section/171/capitulo8.pdf[Entrada y salida con formato]
 * https://pages.mtu.edu/~shene/COURSES/cs201/NOTES/chap05/format.html[Format]
-* https://github.com/wvermin/findent[Identación con FIndent]
 * https://github.com/ljdursi/coarray-examples[Coarrays]
 * https://github.com/xianyi/OpenBLAS/blob/develop/README.md[Open Coarrays]
 
@@ -17,3 +16,28 @@ Descargar fuente de https://www.mpich.org/downloads/[Mpich] y después
 . ./configure
 . make
 . sudo make install
+
+=== Plugin de identación para VIM
+
+Tiene algunas teclas asignadas como son:
+
+* \= para identar todo el fichero fuente.
+* \c comentar la línea
+* \f cambiar flags del plugin de identado
+* \w cambiar (toggle) identación de línea o fichero completo
+
+NOTE: Para más instrucciones puedes hacer '$ findent --vim_help'
+
+He seguido las instrucciones de https://sourceforge.net/projects/findent/[Source Forge] que es el
+proyecto de Willem Vermin, pero parece que también existe otro 
+proyecto del mismo autor en https://github.com/wvermin/findent[Identación con FIndent]
+
+
+[source,bash]
+--
+vimroot=$HOME/.vim
+mkdir -p $vimroot/plugin
+findent --vim_findent > $vimroot/plugin/findent.vim
+mkdir -p $vimroot/after/indent
+findent --vim_fortran > $vimroot/after/indent/fortran.vim
+--

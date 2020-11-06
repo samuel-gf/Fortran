@@ -1,5 +1,7 @@
 == Tools
 
+=== Medida del tiempo en ejecución cpu_time
+
 [source,fortran]
 --
 real(REAL64):: t(2)

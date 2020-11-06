@@ -1,5 +1,10 @@
-program pi_sum
+== Coarrays
 
+Varias instancias de ejecución en paralelo
+
+[source,fortran]
+--
+program pi_sum
     integer, parameter:: limit = 1000
     integer:: i
     real:: pi[*]
@@ -12,10 +17,11 @@ program pi_sum
     ! global barrier
     if (this_image() == 1) then
         do i = 2, num_images()
-            pi = pi+pi[i]
+            pi = pi + pi[i]
         end do
-        pi = pi*4.0
+        pi = pi * 4.0
         print *, "Result", pi
     end if
 
 end program pi_sum
+--

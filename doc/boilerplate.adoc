@@ -11,7 +11,5 @@ program Boiler_plate
 	subroutine hola_mundo
 	! Test
 	end subroutine hola_mundo
-
 end program Boiler_plate
 --
-
