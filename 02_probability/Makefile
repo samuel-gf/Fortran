@@ -10,7 +10,7 @@ build:
 	@mkdir build
 
 build/%: %.f90
-	$(FC) $(notdir $@).f90 -o $@
+	$(FC) $(notdir $@).f90 -I./build -o $@
 
 clean:
 	@rm -f build/*
