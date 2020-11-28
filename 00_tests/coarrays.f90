@@ -7,7 +7,7 @@ program coarrays
     do
         if (this_image() == 1) call produce()
         sync all
-        write (*,"(i2,a2,10i1)") this_image(), ": ", d
+        write (*,"(i2, a2, 10i1)") this_image(), ": ", d
         call sleep(1)
     end do
 
@@ -21,5 +21,5 @@ contains
             d(i)[img] = 1
         end do
         print *, ""
-    end subroutine
+    end subroutine produce
 end program coarrays

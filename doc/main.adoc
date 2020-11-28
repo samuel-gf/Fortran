@@ -1,6 +1,6 @@
 = Apuntes de Fortran
 :source-highlighter: pygments
-:pygments-style: monokai
+:pygments-style: manni
 :author: Samuel Gómez
 :doctype: book
 :toc:

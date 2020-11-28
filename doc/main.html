@@ -1643,76 +1643,75 @@
 
 </style>
 <style>
-pre.pygments .hll { background-color: #49483e }
-pre.pygments  { background: #272822; color: #f8f8f2 }
-pre.pygments .tok-c { color: #75715e } /* Comment */
-pre.pygments .tok-err { color: #960050; background-color: #1e0010 } /* Error */
-pre.pygments .tok-k { color: #66d9ef } /* Keyword */
-pre.pygments .tok-l { color: #ae81ff } /* Literal */
-pre.pygments .tok-n { color: #f8f8f2 } /* Name */
-pre.pygments .tok-o { color: #f92672 } /* Operator */
-pre.pygments .tok-p { color: #f8f8f2 } /* Punctuation */
-pre.pygments .tok-ch { color: #75715e } /* Comment.Hashbang */
-pre.pygments .tok-cm { color: #75715e } /* Comment.Multiline */
-pre.pygments .tok-cp { color: #75715e } /* Comment.Preproc */
-pre.pygments .tok-cpf { color: #75715e } /* Comment.PreprocFile */
-pre.pygments .tok-c1 { color: #75715e } /* Comment.Single */
-pre.pygments .tok-cs { color: #75715e } /* Comment.Special */
-pre.pygments .tok-gd { color: #f92672 } /* Generic.Deleted */
+pre.pygments .hll { background-color: #ffffcc }
+pre.pygments  { background: #f0f3f3; }
+pre.pygments .tok-c { color: #0099FF; font-style: italic } /* Comment */
+pre.pygments .tok-err { color: #AA0000; background-color: #FFAAAA } /* Error */
+pre.pygments .tok-k { color: #006699; font-weight: bold } /* Keyword */
+pre.pygments .tok-o { color: #555555 } /* Operator */
+pre.pygments .tok-ch { color: #0099FF; font-style: italic } /* Comment.Hashbang */
+pre.pygments .tok-cm { color: #0099FF; font-style: italic } /* Comment.Multiline */
+pre.pygments .tok-cp { color: #009999 } /* Comment.Preproc */
+pre.pygments .tok-cpf { color: #0099FF; font-style: italic } /* Comment.PreprocFile */
+pre.pygments .tok-c1 { color: #0099FF; font-style: italic } /* Comment.Single */
+pre.pygments .tok-cs { color: #0099FF; font-weight: bold; font-style: italic } /* Comment.Special */
+pre.pygments .tok-gd { background-color: #FFCCCC; border: 1px solid #CC0000 } /* Generic.Deleted */
 pre.pygments .tok-ge { font-style: italic } /* Generic.Emph */
-pre.pygments .tok-gi { color: #a6e22e } /* Generic.Inserted */
+pre.pygments .tok-gr { color: #FF0000 } /* Generic.Error */
+pre.pygments .tok-gh { color: #003300; font-weight: bold } /* Generic.Heading */
+pre.pygments .tok-gi { background-color: #CCFFCC; border: 1px solid #00CC00 } /* Generic.Inserted */
+pre.pygments .tok-go { color: #AAAAAA } /* Generic.Output */
+pre.pygments .tok-gp { color: #000099; font-weight: bold } /* Generic.Prompt */
 pre.pygments .tok-gs { font-weight: bold } /* Generic.Strong */
-pre.pygments .tok-gu { color: #75715e } /* Generic.Subheading */
-pre.pygments .tok-kc { color: #66d9ef } /* Keyword.Constant */
-pre.pygments .tok-kd { color: #66d9ef } /* Keyword.Declaration */
-pre.pygments .tok-kn { color: #f92672 } /* Keyword.Namespace */
-pre.pygments .tok-kp { color: #66d9ef } /* Keyword.Pseudo */
-pre.pygments .tok-kr { color: #66d9ef } /* Keyword.Reserved */
-pre.pygments .tok-kt { color: #66d9ef } /* Keyword.Type */
-pre.pygments .tok-ld { color: #e6db74 } /* Literal.Date */
-pre.pygments .tok-m { color: #ae81ff } /* Literal.Number */
-pre.pygments .tok-s { color: #e6db74 } /* Literal.String */
-pre.pygments .tok-na { color: #a6e22e } /* Name.Attribute */
-pre.pygments .tok-nb { color: #f8f8f2 } /* Name.Builtin */
-pre.pygments .tok-nc { color: #a6e22e } /* Name.Class */
-pre.pygments .tok-no { color: #66d9ef } /* Name.Constant */
-pre.pygments .tok-nd { color: #a6e22e } /* Name.Decorator */
-pre.pygments .tok-ni { color: #f8f8f2 } /* Name.Entity */
-pre.pygments .tok-ne { color: #a6e22e } /* Name.Exception */
-pre.pygments .tok-nf { color: #a6e22e } /* Name.Function */
-pre.pygments .tok-nl { color: #f8f8f2 } /* Name.Label */
-pre.pygments .tok-nn { color: #f8f8f2 } /* Name.Namespace */
-pre.pygments .tok-nx { color: #a6e22e } /* Name.Other */
-pre.pygments .tok-py { color: #f8f8f2 } /* Name.Property */
-pre.pygments .tok-nt { color: #f92672 } /* Name.Tag */
-pre.pygments .tok-nv { color: #f8f8f2 } /* Name.Variable */
-pre.pygments .tok-ow { color: #f92672 } /* Operator.Word */
-pre.pygments .tok-w { color: #f8f8f2 } /* Text.Whitespace */
-pre.pygments .tok-mb { color: #ae81ff } /* Literal.Number.Bin */
-pre.pygments .tok-mf { color: #ae81ff } /* Literal.Number.Float */
-pre.pygments .tok-mh { color: #ae81ff } /* Literal.Number.Hex */
-pre.pygments .tok-mi { color: #ae81ff } /* Literal.Number.Integer */
-pre.pygments .tok-mo { color: #ae81ff } /* Literal.Number.Oct */
-pre.pygments .tok-sa { color: #e6db74 } /* Literal.String.Affix */
-pre.pygments .tok-sb { color: #e6db74 } /* Literal.String.Backtick */
-pre.pygments .tok-sc { color: #e6db74 } /* Literal.String.Char */
-pre.pygments .tok-dl { color: #e6db74 } /* Literal.String.Delimiter */
-pre.pygments .tok-sd { color: #e6db74 } /* Literal.String.Doc */
-pre.pygments .tok-s2 { color: #e6db74 } /* Literal.String.Double */
-pre.pygments .tok-se { color: #ae81ff } /* Literal.String.Escape */
-pre.pygments .tok-sh { color: #e6db74 } /* Literal.String.Heredoc */
-pre.pygments .tok-si { color: #e6db74 } /* Literal.String.Interpol */
-pre.pygments .tok-sx { color: #e6db74 } /* Literal.String.Other */
-pre.pygments .tok-sr { color: #e6db74 } /* Literal.String.Regex */
-pre.pygments .tok-s1 { color: #e6db74 } /* Literal.String.Single */
-pre.pygments .tok-ss { color: #e6db74 } /* Literal.String.Symbol */
-pre.pygments .tok-bp { color: #f8f8f2 } /* Name.Builtin.Pseudo */
-pre.pygments .tok-fm { color: #a6e22e } /* Name.Function.Magic */
-pre.pygments .tok-vc { color: #f8f8f2 } /* Name.Variable.Class */
-pre.pygments .tok-vg { color: #f8f8f2 } /* Name.Variable.Global */
-pre.pygments .tok-vi { color: #f8f8f2 } /* Name.Variable.Instance */
-pre.pygments .tok-vm { color: #f8f8f2 } /* Name.Variable.Magic */
-pre.pygments .tok-il { color: #ae81ff } /* Literal.Number.Integer.Long */
+pre.pygments .tok-gu { color: #003300; font-weight: bold } /* Generic.Subheading */
+pre.pygments .tok-gt { color: #99CC66 } /* Generic.Traceback */
+pre.pygments .tok-kc { color: #006699; font-weight: bold } /* Keyword.Constant */
+pre.pygments .tok-kd { color: #006699; font-weight: bold } /* Keyword.Declaration */
+pre.pygments .tok-kn { color: #006699; font-weight: bold } /* Keyword.Namespace */
+pre.pygments .tok-kp { color: #006699 } /* Keyword.Pseudo */
+pre.pygments .tok-kr { color: #006699; font-weight: bold } /* Keyword.Reserved */
+pre.pygments .tok-kt { color: #007788; font-weight: bold } /* Keyword.Type */
+pre.pygments .tok-m { color: #FF6600 } /* Literal.Number */
+pre.pygments .tok-s { color: #CC3300 } /* Literal.String */
+pre.pygments .tok-na { color: #330099 } /* Name.Attribute */
+pre.pygments .tok-nb { color: #336666 } /* Name.Builtin */
+pre.pygments .tok-nc { color: #00AA88; font-weight: bold } /* Name.Class */
+pre.pygments .tok-no { color: #336600 } /* Name.Constant */
+pre.pygments .tok-nd { color: #9999FF } /* Name.Decorator */
+pre.pygments .tok-ni { color: #999999; font-weight: bold } /* Name.Entity */
+pre.pygments .tok-ne { color: #CC0000; font-weight: bold } /* Name.Exception */
+pre.pygments .tok-nf { color: #CC00FF } /* Name.Function */
+pre.pygments .tok-nl { color: #9999FF } /* Name.Label */
+pre.pygments .tok-nn { color: #00CCFF; font-weight: bold } /* Name.Namespace */
+pre.pygments .tok-nt { color: #330099; font-weight: bold } /* Name.Tag */
+pre.pygments .tok-nv { color: #003333 } /* Name.Variable */
+pre.pygments .tok-ow { color: #000000; font-weight: bold } /* Operator.Word */
+pre.pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
+pre.pygments .tok-mb { color: #FF6600 } /* Literal.Number.Bin */
+pre.pygments .tok-mf { color: #FF6600 } /* Literal.Number.Float */
+pre.pygments .tok-mh { color: #FF6600 } /* Literal.Number.Hex */
+pre.pygments .tok-mi { color: #FF6600 } /* Literal.Number.Integer */
+pre.pygments .tok-mo { color: #FF6600 } /* Literal.Number.Oct */
+pre.pygments .tok-sa { color: #CC3300 } /* Literal.String.Affix */
+pre.pygments .tok-sb { color: #CC3300 } /* Literal.String.Backtick */
+pre.pygments .tok-sc { color: #CC3300 } /* Literal.String.Char */
+pre.pygments .tok-dl { color: #CC3300 } /* Literal.String.Delimiter */
+pre.pygments .tok-sd { color: #CC3300; font-style: italic } /* Literal.String.Doc */
+pre.pygments .tok-s2 { color: #CC3300 } /* Literal.String.Double */
+pre.pygments .tok-se { color: #CC3300; font-weight: bold } /* Literal.String.Escape */
+pre.pygments .tok-sh { color: #CC3300 } /* Literal.String.Heredoc */
+pre.pygments .tok-si { color: #AA0000 } /* Literal.String.Interpol */
+pre.pygments .tok-sx { color: #CC3300 } /* Literal.String.Other */
+pre.pygments .tok-sr { color: #33AAAA } /* Literal.String.Regex */
+pre.pygments .tok-s1 { color: #CC3300 } /* Literal.String.Single */
+pre.pygments .tok-ss { color: #FFCC33 } /* Literal.String.Symbol */
+pre.pygments .tok-bp { color: #336666 } /* Name.Builtin.Pseudo */
+pre.pygments .tok-fm { color: #CC00FF } /* Name.Function.Magic */
+pre.pygments .tok-vc { color: #003333 } /* Name.Variable.Class */
+pre.pygments .tok-vg { color: #003333 } /* Name.Variable.Global */
+pre.pygments .tok-vi { color: #003333 } /* Name.Variable.Instance */
+pre.pygments .tok-vm { color: #003333 } /* Name.Variable.Magic */
+pre.pygments .tok-il { color: #FF6600 } /* Literal.Number.Integer.Long */
 </style>
 </head>
 <body class="book">
@@ -1757,7 +1756,11 @@ pre.pygments .tok-il { color: #ae81ff } /* Literal.Number.Integer.Long */
 	<span class="tok-k">use </span><span class="tok-n">iso_fortran_env</span>
 	<span class="tok-k">implicit none</span>
 
-<span class="tok-k">	contains</span>
+<span class="tok-k">	module </span><span class="tok-n">mod_hola_mundo</span>
+	<span class="tok-c">! Datos globales</span>
+	<span class="tok-k">end module </span><span class="tok-n">mod_hola_mundo</span>
+
+	<span class="tok-k">contains</span>
 
 <span class="tok-k">	subroutine </span><span class="tok-n">hola_mundo</span>
 	<span class="tok-c">! Test</span>
@@ -1772,6 +1775,25 @@ pre.pygments .tok-il { color: #ae81ff } /* Literal.Number.Integer.Long */
 <div class="sectionbody">
 <div class="paragraph">
 <p>Este es un ejemplo de un Makefile</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="makefile"><span></span><span class="tok-nv">FC</span> <span class="tok-o">=</span> gfortran
+<span class="tok-nv">SRC</span> <span class="tok-o">=</span> <span class="tok-k">$(</span>wildcard *.f90<span class="tok-k">)</span>
+<span class="tok-nv">TARGET</span> <span class="tok-o">=</span> <span class="tok-k">$(</span>addprefix build/,<span class="tok-k">$(</span>SRC:.f90<span class="tok-o">=</span><span class="tok-k">))</span>
+<span class="tok-nv">ARGS</span> <span class="tok-o">=</span>-ffree-form -fimplicit-none -fcheck -fbacktrace
+<span class="tok-nv">OPEN_BLAS</span><span class="tok-o">=</span>-L/opt/OpenBLAS/lib
+
+<span class="tok-nf">all</span><span class="tok-o">:</span> <span class="tok-k">$(</span><span class="tok-nv">TARGET</span><span class="tok-k">)</span>
+
+<span class="tok-c"># Caso genérico</span>
+<span class="tok-nf">build/%</span><span class="tok-o">:</span> %.<span class="tok-n">f</span>90
+	<span class="tok-k">$(</span>FC<span class="tok-k">)</span> <span class="tok-k">$(</span>ARGS<span class="tok-k">)</span> -o <span class="tok-nv">$@</span> $&lt;
+
+<span class="tok-nf">clean</span><span class="tok-o">:</span>
+	@rm -f <span class="tok-k">$(</span>TARGET<span class="tok-k">)</span>
+	@rm -f *.mod *.o</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -1958,7 +1980,7 @@ findent --vim_fortran &gt; <span class="tok-nv">$vimroot</span>/after/indent/for
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-11-06 20:28:23 +0100
+Last updated 2020-11-25 18:29:21 +0100
 </div>
 </div>
 </body>

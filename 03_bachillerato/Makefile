@@ -1,14 +1,14 @@
 FC = gfortran
 SRC = $(wildcard *.f90)
-TARGET = $(SRC:.f90=)
-ARGS =-ffree-form -fimplicit-none 
+TARGET = $(addprefix build/,$(SRC:.f90=))
+ARGS =-ffree-form -fimplicit-none -fcheck -fbacktrace
 OPEN_BLAS=-L/opt/OpenBLAS/lib
 
 all: $(TARGET)
 
 # Caso genérico
-%: %.f90
-	@$(FC) $(ARGS) -o $@ $<
+build/%: %.f90 
+	$(FC) $(ARGS) -o $@ $<
 
 clean:
 	@rm -f $(TARGET)

@@ -6,6 +6,10 @@ program Boiler_plate
 	use iso_fortran_env
 	implicit none
 
+	module mod_hola_mundo
+	! Datos globales
+	end module mod_hola_mundo
+
 	contains
 
 	subroutine hola_mundo

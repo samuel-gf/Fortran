@@ -2,7 +2,7 @@ FC = gfortran
 CAF = caf
 SRC = $(wildcard *.f90)
 TARGET = $(SRC:.f90=)
-ARGS = -ffree-form -fimplicit-none -O3 -L/opt/OpenBLAS/lib
+ARGS = -ffree-form -fimplicit-none -O3 -L/opt/OpenBLAS/lib -fbacktrace
 
 all: $(TARGET)
 
