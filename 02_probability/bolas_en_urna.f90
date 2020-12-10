@@ -76,9 +76,8 @@ contains
 
     subroutine test_caso_buscado()
         ! Apartado E
-        if ((n_bolas_en_urna(1) == 2 .or. n_bolas_en_urna(2) == 2 .or. n_bolas_en_urna(3) == 2) .and. &
-            (n_bolas_en_urna(1) == 2 .or. n_bolas_en_urna(2) == 2 .or. n_bolas_en_urna(3) == 2) .and. &
-            (n_bolas_en_urna(1) == 1 .or. n_bolas_en_urna(2) == 1 .or. n_bolas_en_urna(3) == 1)) then
+        if ((n_bolas_en_urna(1) == 3 .or. n_bolas_en_urna(2) == 3 .or. n_bolas_en_urna(3) == 3) .and. &
+            (n_bolas_en_urna(1) == 2 .or. n_bolas_en_urna(2) == 2 .or. n_bolas_en_urna(3) == 2)) then
             ! Caso favorable
             casos_favorables = casos_favorables + 1
             write (*, "(a, i4)") "           Sí nº", casos_favorables

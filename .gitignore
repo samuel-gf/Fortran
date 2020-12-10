@@ -9,3 +9,4 @@ tmp
 01_benchmarks/1.txt
 01_benchmarks/2.txt
 build
+00_tests/build/

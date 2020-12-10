@@ -1731,6 +1731,7 @@ pre.pygments .tok-il { color: #FF6600 } /* Literal.Number.Integer.Long */
 <li><a href="#_tipos_derivados">Tipos derivados</a></li>
 </ul>
 </li>
+<li><a href="#_strings">Strings</a></li>
 <li><a href="#_coarrays">Coarrays</a></li>
 <li><a href="#_tools">Tools</a>
 <ul class="sectlevel2">
@@ -1829,6 +1830,30 @@ pre.pygments .tok-il { color: #FF6600 } /* Literal.Number.Integer.Long */
 	<span class="tok-kt">real</span><span class="tok-kd">::</span>              <span class="tok-n">edad</span>
 <span class="tok-k">end type </span><span class="tok-n">Persona</span></code></pre>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_strings">Strings</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Se declaran así</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="fortran"><span></span><span class="tok-k">program </span><span class="tok-n">Strings</span>
+	<span class="tok-k">use </span><span class="tok-n">iso_fortran_env</span>
+	<span class="tok-k">implicit none</span>
+
+<span class="tok-k">	</span><span class="tok-kt">character</span><span class="tok-p">(</span><span class="tok-nb">len</span><span class="tok-o">=</span><span class="tok-mi">5</span><span class="tok-p">)</span><span class="tok-kd">::</span> <span class="tok-n">s</span>			<span class="tok-c">! Una cadena</span>
+	<span class="tok-kt">character</span><span class="tok-p">(</span><span class="tok-nb">len</span><span class="tok-o">=</span><span class="tok-p">:)</span><span class="tok-kd">::</span> <span class="tok-n">s_array</span><span class="tok-p">(:)</span>	<span class="tok-c">! Un array de cadenas</span>
+
+	<span class="tok-c">! SETUP -----------</span>
+	<span class="tok-c">! Reserva espacio para la 10 cadenas de 5 caractéres cada una</span>
+	<span class="tok-k">allocate</span><span class="tok-p">(</span><span class="tok-kt">character</span><span class="tok-p">(</span><span class="tok-nb">len</span><span class="tok-o">=</span><span class="tok-mi">5</span><span class="tok-p">)</span><span class="tok-kd">::</span> <span class="tok-n">s_array</span><span class="tok-p">(</span><span class="tok-mi">10</span><span class="tok-p">))</span>
+
+<span class="tok-k">end program </span><span class="tok-n">Strings</span></code></pre>
 </div>
 </div>
 </div>
@@ -1980,7 +2005,7 @@ findent --vim_fortran &gt; <span class="tok-nv">$vimroot</span>/after/indent/for
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-11-25 18:29:21 +0100
+Last updated 2020-12-09 20:12:26 +0100
 </div>
 </div>
 </body>

@@ -1,5 +1,5 @@
 FC = gfortran
-TARGETS = 01_blas 02_birthday 02_birthday_intel 03_reverse_complement_intel 03_reverse_complement_gcc
+TARGETS = 04_array_to_integer
 DIR_LIB = /usr/local/lib
 ARGS = -Wall -Wextra -std=f2018 -O3 -pedantic -L$(DIR_LIB)
 PWD = $(shell pwd)
@@ -18,6 +18,9 @@ all: $(TARGETS)
 	$(FC) $@.f90 -O3 -o $@
 	@#$(FC) $@.f90 -O3 -o $@_gcc
 	@#ifort $@.f90 -O3 -o $@_intel
+
+04_array_to_integer: 04_array_to_integer.f90
+	$(FC) $@.f90 -O3 -o $@
 
 # Reset
 clean:

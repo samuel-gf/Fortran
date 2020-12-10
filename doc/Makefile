@@ -1,7 +1,7 @@
-TARGET = main
+TARGET = index
 
 all:
-	asciidoctor $(TARGET).adoc -a icons -o $(TARGET).html
+	asciidoctor $(TARGET).adoc -a icons -a stylesheet=css/general.css  -o $(TARGET).html
 
-clear:
+clean:
 	rm -f $(TARGET).html
