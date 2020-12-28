@@ -1,5 +1,5 @@
 module mod_bolas_en_urna
-    integer, parameter:: n_urnas=3, n_bolas=5, casos_posibles=3**n_bolas
+    integer, parameter:: n_urnas=3, n_bolas=5, casos_posibles=n_urnas**n_bolas
     integer:: n_bolas_en_urna(n_urnas)
     integer:: casos_favorables
 end module mod_bolas_en_urna
@@ -12,7 +12,7 @@ program bolas_en_urna
     integer:: v(n_bolas), i
     character(len=100):: fmt_vector
 
-    ! Setup
+    ! Setup ----------
     v = 1
     casos_favorables = 0
     write (fmt_vector, *) "(", n_bolas, "i3)"
@@ -22,6 +22,7 @@ program bolas_en_urna
     print *, "----------------------------------------------------------------"
 
 
+    ! Main loop ----------
     call mostrar_fila_info()
     do i = 2, casos_posibles
         call next_iteration(v, n_bolas)
@@ -31,8 +32,8 @@ program bolas_en_urna
     print *, "Casos favorables: ", casos_favorables
     print *, "Casos posibles:   ", casos_posibles
     print "(a,f6.4)", " Probabilidad:           ", real(casos_favorables)/casos_posibles
-contains
 
+contains
 
     recursive subroutine next_iteration(v, p)
         integer, intent(inout):: v(n_bolas)
@@ -75,7 +76,7 @@ contains
 
 
     subroutine test_caso_buscado()
-        ! Apartado E
+        ! Resuelve el apartado E
         if ((n_bolas_en_urna(1) == 3 .or. n_bolas_en_urna(2) == 3 .or. n_bolas_en_urna(3) == 3) .and. &
             (n_bolas_en_urna(1) == 2 .or. n_bolas_en_urna(2) == 2 .or. n_bolas_en_urna(3) == 2)) then
             ! Caso favorable

@@ -1,16 +1,22 @@
 FC = gfortran
 SRC = $(wildcard *.f90)
-TARGETS = $(addprefix build/,$(SRC:.f90=))
+TARGETS = $(addprefix app/,$(SRC:.f90=))
 ARGS = -Wall -Wextra -std=f2018 -O3 -pedantic -fdec-math
 PWD = $(shell pwd)
 
-all: build $(TARGETS)
+all: app $(TARGETS)
 
-build:
-	@mkdir build
+mod_dados.o: mod_dados.f90
+	gfortran -c -O3 mod_dados.f90
 
-build/%: %.f90
-	$(FC) $(notdir $@).f90 -I./build -o $@
+app:
+	@mkdir app
+
+app/%: mod_dados.o %.f90
+	$(FC) -c $(notdir $@).f90
+	$(FC) mod_dados.o $(notdir $@).o -o $(notdir $@)
+	mv $(notdir $@).o app
 
 clean:
-	@rm -f build/*
+	@rm -f app/*
+	@rm -f *.o *.mod
