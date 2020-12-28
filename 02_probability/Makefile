@@ -15,7 +15,7 @@ app:
 app/%: mod_dados.o %.f90
 	$(FC) -c $(notdir $@).f90
 	$(FC) mod_dados.o $(notdir $@).o -o $(notdir $@)
-	mv $(notdir $@).o app
+	@mv $(notdir $@) app
 
 clean:
 	@rm -f app/*
