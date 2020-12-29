@@ -8,7 +8,8 @@ program dados
     use mod_global
     implicit none
 
-    integer, parameter:: max_i = 10
+    integer, parameter:: max_i = 10000000
+    real(real64), parameter:: max_i_inv = 1.0d0/max_i
 
     integer:: i, j          ! bucles
     integer:: x             ! nº obtenido en el dado
@@ -18,6 +19,7 @@ program dados
     integer:: intentos(4)   ! contador de intentos que cúmplen la precondición
     real:: esp_x, esp_n     ! esperanza de nº obtenido en dado y de número de caras
     real:: cov              ! covarianza
+    character(len=*), parameter:: fmt_result = "(a16, f8.4)"
 
 
     ! SETUP ---------------------
@@ -48,8 +50,7 @@ program dados
                 c(2) = c(2) + 1
             end if
         end do lanza_monedas
-        print *, d, "  caras", c
-        !e(3) = e(3) + n      ! Número de caras obtenidas en total del experimento
+        cov = cov + (n*x)
 
 
         ! COMPROBAR ÉXITOS ------------------------------
@@ -68,13 +69,26 @@ program dados
 
 
     ! RESULTADOS ------------------
-    esp_n = real(sum(c)) / i     ! esperanza de caras
-    esp_x = real(sum(d)) / i     ! esperanza de valores del dado
-    ! TODO calcular la Covarianza
-    cov = cov / i
-    write (*, "(a12, f10.4)") "Resultado_1", real(e(1))/i
-    write (*, "(a12, f10.4)") "Resultado_2", real(e(2))/intentos(2)
-    write (*, "(a12, f10.4)") "Resultado_3", esp_n
-    write (*, "(a12, 2f10.4)") "Resultado_4", cov, -(esp_n*esp_x)
+    esp_n = real(c(1)) / max_i          ! esperanza de caras
+    suma_resultados_dado: do i = 1, 6   ! esperanza de dado
+        esp_x = esp_x + d(i)*i
+    end do suma_resultados_dado
+    esp_x = real(esp_x) / max_i
+
+    cov = (cov * max_i_inv) - (esp_n*esp_x)        ! 1.458
+
+    write (*, *) "RESULTADOS"
+    write (*, *) ""
+
+    write (*, fmt_result) "Resultado_1", real(e(1))/max_i
+    write (*, fmt_result) "Resultado_2", real(e(2))/intentos(2)
+    write (*, fmt_result) "Resultado_3", esp_n
+    write (*, fmt_result) "Resultado_4", cov
+
+    write (*,*) " "
+    write (*, fmt_result) "Esperanza caras", esp_n
+    write (*, fmt_result) "Esperanza dado", esp_x
+
+
 
 end program dados
