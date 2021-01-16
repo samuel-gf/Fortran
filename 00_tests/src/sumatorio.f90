@@ -1,10 +1,12 @@
 program sumatorio
-   use ISO_FORTRAN_ENV
-   integer(int64):: i, total=0
-   integer, parameter:: MAXIMO=100000
+    use ISO_FORTRAN_ENV
+    implicit none
 
-   do i = 1, MAXIMO
-      total = total + i
-   end do
-   print *, "Suma ", total
+    integer(int64):: suma
+    integer:: i
+
+    do i = 1, 45000
+        suma = suma + 9999 + 2*i
+    end do
+    print *, "Suma ", suma
 end program

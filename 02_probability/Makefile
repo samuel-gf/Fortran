@@ -9,6 +9,7 @@ all: app $(TARGETS)
 
 mod/mod_dados.o: mod_dados.f90
 	gfortran -c -O3 mod_dados.f90
+	mv mod_dados.mod mod_dados.o mod
 
 app:
 	@mkdir app

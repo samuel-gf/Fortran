@@ -1,4 +1,4 @@
-program dados
+program sept20
     ! Se lanza un dado equilibrado (1d6) y luego tantas monedas equilibradas como el valor
     ! obtenido en el dado. Sea X el número obtenido en el dado y N el número de caras
     use iso_fortran_env
@@ -73,4 +73,4 @@ program dados
 
 
 
-end program dados
+end program sept20
