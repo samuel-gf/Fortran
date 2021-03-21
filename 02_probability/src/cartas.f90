@@ -10,7 +10,7 @@ program cartas
     integer:: e(2)  ! Éxito porque tiene las tres parejas
     integer:: t, p  ! Trio y pareja
 
-    integer:: i, j, k, dado
+    integer:: i, j, dado
 
     ! SETUP ---------------------
     r = .false.

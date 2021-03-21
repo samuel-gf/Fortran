@@ -1,32 +1,3 @@
-== Makefile
-
-Este es un ejemplo de un Makefile
-
-[source,makefile]
---
-FC = gfortran
-SRC = $(wildcard *.f90)
-TARGET = $(addprefix app/,$(SRC:.f90=))
-ARGS =-ffree-form -fimplicit-none -fcheck -fbacktrace
-OPEN_BLAS=-L/opt/OpenBLAS/lib
-
-all: $(TARGET)
-
-# Caso genérico
-app/%: %.f90 
-	$(FC) $(ARGS) -o $@ $<
-
-clean:
-	@rm -f $(TARGET)
-	@rm -f *.mod *.o
-
---
-
-
-Este otro lo he usado más y me da buenos resultados
-
-[source,makefile]
---
 FC = gfortran
 CAF = caf
 SRC = $(wildcard src/*.f)
@@ -56,4 +27,3 @@ app/%: src/%.f
 clean:
 	@rm -f $(TARGETS)
 	@rm -f mod/*.mod mod/*.o
---

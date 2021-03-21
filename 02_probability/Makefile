@@ -1,25 +1,32 @@
 FC = gfortran
-SRC = $(wildcard *.f90)
-TARGETS = $(addprefix app/,$(SRC:.f90=))
-ARGS = -Wall -Wextra -std=f2018 -O3 -pedantic -fdec-math
-PWD = $(shell pwd)
-DIR_FLAGS = -I./mod -J./mod
+CAF = caf
+SRC = $(wildcard src/*.f90)
+FILES_NO_EXT = $(notdir $(SRC))
+TARGETS = $(addprefix app/,$(FILES_NO_EXT:.f90=))
 
-all: app $(TARGETS)
+# Modules
+MOD_SRC = $(wildcard src/mod/*.f90)
+MOD_TARGETS = $(addprefix app/mod/,$(notdir $(MOD_SRC:.f90=.mod)))
 
-mod/mod_dados.o: mod_dados.f90
-	gfortran -c -O3 mod_dados.f90
-	mv mod_dados.mod mod_dados.o mod
+# Arguments
+#ARGS = -Wall -Wextra -std=f2018 -O3 -pedantic -fdec-math -ffree-form -Imod
+ARGS = -std=f2018 -ffree-form -Imod
 
-app:
-	@mkdir app
 
-app/%: mod/mod_dados.o %.f90
-	$(FC) $(DIR_FLAGS) -c $(notdir $@).f90
-	$(FC) $(DIR_FLAGS) ./mod/mod_dados.o $(notdir $@).o -o $(notdir $@)
-	@mv $(notdir $@) app
-	@rm $(notdir $@).o
+all: dir_app $(TARGETS)
+
+# Make target directory
+dir_app:
+	@mkdir -p app
+
+# Module dados
+mod/mod_dados.o: src/mod_dados.f90
+	$(FC) -c $< -Jmod -o $@
+
+# Caso genérico
+app/%: src/%.f90 src/mod_dados.f90
+	$(FC) $(ARGS) mod/mod_dados.o $< -o $@
 
 clean:
-	@rm -f app/*
-	@rm -f *.o *.mod
+	@rm -f $(TARGETS)
+	@rm -f mod/*.mod mod/*.o

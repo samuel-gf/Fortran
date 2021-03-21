@@ -8,8 +8,8 @@ program Strings
 	use iso_fortran_env
 	implicit none
 
-	character(len=5):: s			! Una cadena
-	character(len=:):: s_array(:)	! Un array de cadenas
+	character(len=5):: s            ! Una cadena
+	character(len=:):: s_array(:)   ! Un array de cadenas
 
 	! SETUP -----------
 	! Reserva espacio para la 10 cadenas de 5 caractéres cada una

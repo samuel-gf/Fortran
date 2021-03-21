@@ -1,5 +1,5 @@
 program multiplicacion_matrices
-    integer:: a(3, 3), b(3, 3), c(3, 3)
+    real:: a(3, 3), b(3, 3), c(3, 3)
     integer:: i
 
     ! Leer las matrices

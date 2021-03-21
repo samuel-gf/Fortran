@@ -10,15 +10,17 @@
 :toc-title: Índice
 
 include::boilerplate.adoc[]
-
 include::fichero_makefile.adoc[]
+include::language-server.adoc[]
 
 include::tipos.adoc[]
-
+include::variable_compleja.adoc[]
 include::strings.adoc[]
+include::data_structures.adoc[]
+
+include::entrada_salida.adoc[]
 
 include::coarrays.adoc[]
 
 include::tools.adoc[]
-
 include::resources.adoc[]

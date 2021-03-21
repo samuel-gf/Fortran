@@ -1725,13 +1725,24 @@ pre.pygments .tok-il { color: #FF6600 } /* Literal.Number.Integer.Long */
 <ul class="sectlevel1">
 <li><a href="#_boiler_plate">Boiler plate</a></li>
 <li><a href="#_makefile">Makefile</a></li>
+<li><a href="#_language_server">Language Server</a></li>
 <li><a href="#_tipos">Tipos</a>
 <ul class="sectlevel2">
 <li><a href="#_tipos_iso">Tipos ISO</a></li>
 <li><a href="#_tipos_derivados">Tipos derivados</a></li>
 </ul>
 </li>
+<li><a href="#_variable_compleja">Variable compleja</a></li>
 <li><a href="#_strings">Strings</a></li>
+<li><a href="#_estructuras_de_datos">Estructuras de datos</a>
+<ul class="sectlevel2">
+<li><a href="#_estructura">Estructura</a></li>
+<li><a href="#_estructura_paramétrica_o_template">Estructura paramétrica o template</a></li>
+<li><a href="#_array_de_estructuras">Array de estructuras</a></li>
+<li><a href="#_estructura_de_arrays">Estructura de arrays</a></li>
+</ul>
+</li>
+<li><a href="#_entrada_y_salida">Entrada y salida</a></li>
 <li><a href="#_coarrays">Coarrays</a></li>
 <li><a href="#_tools">Tools</a>
 <ul class="sectlevel2">
@@ -1781,19 +1792,92 @@ pre.pygments .tok-il { color: #FF6600 } /* Literal.Number.Integer.Long */
 <div class="content">
 <pre class="pygments highlight"><code data-lang="makefile"><span></span><span class="tok-nv">FC</span> <span class="tok-o">=</span> gfortran
 <span class="tok-nv">SRC</span> <span class="tok-o">=</span> <span class="tok-k">$(</span>wildcard *.f90<span class="tok-k">)</span>
-<span class="tok-nv">TARGET</span> <span class="tok-o">=</span> <span class="tok-k">$(</span>addprefix build/,<span class="tok-k">$(</span>SRC:.f90<span class="tok-o">=</span><span class="tok-k">))</span>
+<span class="tok-nv">TARGET</span> <span class="tok-o">=</span> <span class="tok-k">$(</span>addprefix app/,<span class="tok-k">$(</span>SRC:.f90<span class="tok-o">=</span><span class="tok-k">))</span>
 <span class="tok-nv">ARGS</span> <span class="tok-o">=</span>-ffree-form -fimplicit-none -fcheck -fbacktrace
 <span class="tok-nv">OPEN_BLAS</span><span class="tok-o">=</span>-L/opt/OpenBLAS/lib
 
 <span class="tok-nf">all</span><span class="tok-o">:</span> <span class="tok-k">$(</span><span class="tok-nv">TARGET</span><span class="tok-k">)</span>
 
 <span class="tok-c"># Caso genérico</span>
-<span class="tok-nf">build/%</span><span class="tok-o">:</span> %.<span class="tok-n">f</span>90
+<span class="tok-nf">app/%</span><span class="tok-o">:</span> %.<span class="tok-n">f</span>90
 	<span class="tok-k">$(</span>FC<span class="tok-k">)</span> <span class="tok-k">$(</span>ARGS<span class="tok-k">)</span> -o <span class="tok-nv">$@</span> $&lt;
 
 <span class="tok-nf">clean</span><span class="tok-o">:</span>
 	@rm -f <span class="tok-k">$(</span>TARGET<span class="tok-k">)</span>
 	@rm -f *.mod *.o</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Este otro lo he usado más y me da buenos resultados</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="makefile"><span></span><span class="tok-nv">FC</span> <span class="tok-o">=</span> gfortran
+<span class="tok-nv">CAF</span> <span class="tok-o">=</span> caf
+<span class="tok-nv">SRC</span> <span class="tok-o">=</span> <span class="tok-k">$(</span>wildcard src/*.f<span class="tok-k">)</span>
+<span class="tok-nv">FILES_NO_EXT</span> <span class="tok-o">=</span> <span class="tok-k">$(</span>notdir <span class="tok-k">$(</span>SRC<span class="tok-k">))</span>
+<span class="tok-nv">TARGETS</span> <span class="tok-o">=</span> <span class="tok-k">$(</span>addprefix app/,<span class="tok-k">$(</span>FILES_NO_EXT:.f<span class="tok-o">=</span><span class="tok-k">))</span>
+
+<span class="tok-c"># Modules</span>
+<span class="tok-nv">MOD_SRC</span> <span class="tok-o">=</span> <span class="tok-k">$(</span>wildcard src/mod/*.f<span class="tok-k">)</span>
+<span class="tok-nv">MOD_TARGETS</span> <span class="tok-o">=</span> <span class="tok-k">$(</span>addprefix app/mod/,<span class="tok-k">$(</span>notdir <span class="tok-k">$(</span>MOD_SRC:.f<span class="tok-o">=</span>.mod<span class="tok-k">)))</span>
+
+<span class="tok-c"># Arguments</span>
+<span class="tok-c">#ARGS = -Wall -Wextra -std=f2018 -O3 -pedantic -fdec-math -ffree-form -Imod</span>
+<span class="tok-nv">ARGS</span> <span class="tok-o">=</span> -std<span class="tok-o">=</span>f2018 -ffree-form -Imod
+
+
+<span class="tok-nf">all</span><span class="tok-o">:</span> <span class="tok-n">app</span> <span class="tok-n">mod</span> <span class="tok-k">$(</span><span class="tok-nv">TARGETS</span><span class="tok-k">)</span>
+
+<span class="tok-c"># Make target directory</span>
+<span class="tok-nf">app mod</span><span class="tok-o">:</span>
+	@mkdir -p app
+	@mkdir -p mod
+
+<span class="tok-c"># Caso genérico</span>
+<span class="tok-nf">app/%</span><span class="tok-o">:</span> <span class="tok-n">src</span>/%.<span class="tok-n">f</span>
+	<span class="tok-k">$(</span>FC<span class="tok-k">)</span> <span class="tok-k">$(</span>ARGS<span class="tok-k">)</span> $&lt; -o <span class="tok-nv">$@</span>
+
+<span class="tok-nf">clean</span><span class="tok-o">:</span>
+	@rm -f <span class="tok-k">$(</span>TARGETS<span class="tok-k">)</span>
+	@rm -f mod/*.mod mod/*.o</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_language_server">Language Server</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Se encuentra en el paquete <code>fortran-language-server</code>. Puede ser arrancado mediante la orden <code>fortls</code></p>
+</div>
+<div class="paragraph">
+<p>El paquete contiene estos archivos</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code><span></span>samuel@hp-i5:~$ apt-file list fortran-language-server
+
+fortran-language-server: /usr/bin/fortls
+fortran-language-server: /usr/lib/python3/dist-packages/fortls/__init__.py
+fortran-language-server: /usr/lib/python3/dist-packages/fortls/intrinsic_funs.json
+fortran-language-server: /usr/lib/python3/dist-packages/fortls/intrinsic_mods.json
+fortran-language-server: /usr/lib/python3/dist-packages/fortls/intrinsics.py
+fortran-language-server: /usr/lib/python3/dist-packages/fortls/jsonrpc.py
+fortran-language-server: /usr/lib/python3/dist-packages/fortls/keywords.json
+fortran-language-server: /usr/lib/python3/dist-packages/fortls/langserver.py
+fortran-language-server: /usr/lib/python3/dist-packages/fortls/objects.py
+fortran-language-server: /usr/lib/python3/dist-packages/fortls/parse_fortran.py
+fortran-language-server: /usr/lib/python3/dist-packages/fortls/statements.json
+fortran-language-server: /usr/lib/python3/dist-packages/fortran_language_server-1.10.3.egg-info/PKG-INFO
+fortran-language-server: /usr/lib/python3/dist-packages/fortran_language_server-1.10.3.egg-info/dependency_links.txt
+fortran-language-server: /usr/lib/python3/dist-packages/fortran_language_server-1.10.3.egg-info/entry_points.txt
+fortran-language-server: /usr/lib/python3/dist-packages/fortran_language_server-1.10.3.egg-info/requires.txt
+fortran-language-server: /usr/lib/python3/dist-packages/fortran_language_server-1.10.3.egg-info/top_level.txt
+fortran-language-server: /usr/share/doc/fortran-language-server/README.rst.gz
+fortran-language-server: /usr/share/doc/fortran-language-server/changelog.Debian.gz
+fortran-language-server: /usr/share/doc/fortran-language-server/copyright
+fortran-language-server: /usr/share/man/man1/fortls.1.gz</code></pre>
 </div>
 </div>
 </div>
@@ -1835,6 +1919,34 @@ pre.pygments .tok-il { color: #FF6600 } /* Literal.Number.Integer.Long */
 </div>
 </div>
 <div class="sect1">
+<h2 id="_variable_compleja">Variable compleja</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="fortran"><span></span><span class="tok-k">program </span><span class="tok-n">coseno</span>
+    <span class="tok-kt">complex </span><span class="tok-n">w</span><span class="tok-p">,</span> <span class="tok-n">z</span>
+
+
+    <span class="tok-c">! Entrada</span>
+    <span class="tok-k">write</span> <span class="tok-p">(</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-s2">&quot;(a)&quot;</span><span class="tok-p">,</span> <span class="tok-n">advance</span><span class="tok-o">=</span><span class="tok-s2">&quot;no&quot;</span><span class="tok-p">)</span> <span class="tok-s2">&quot;Valor real de z: &quot;</span>
+    <span class="tok-k">read</span> <span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">z</span><span class="tok-p">%</span><span class="tok-n">re</span>
+    <span class="tok-k">write</span> <span class="tok-p">(</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-s2">&quot;(a)&quot;</span><span class="tok-p">,</span> <span class="tok-n">advance</span><span class="tok-o">=</span><span class="tok-s2">&quot;no&quot;</span><span class="tok-p">)</span> <span class="tok-s2">&quot;Valor imaginario de z: &quot;</span>
+    <span class="tok-k">read</span> <span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">z</span><span class="tok-p">%</span><span class="tok-n">im</span>
+
+    <span class="tok-c">! Cálculos</span>
+    <span class="tok-n">w</span> <span class="tok-o">=</span> <span class="tok-nb">cos</span><span class="tok-p">(</span><span class="tok-n">z</span><span class="tok-p">)</span>
+
+    <span class="tok-c">! Salida</span>
+    <span class="tok-k">write</span> <span class="tok-p">(</span><span class="tok-o">*</span><span class="tok-p">,</span><span class="tok-s2">&quot;(a)&quot;</span><span class="tok-p">)</span> <span class="tok-s2">&quot;w=cos(z)&quot;</span>
+    <span class="tok-k">write</span> <span class="tok-p">(</span><span class="tok-o">*</span><span class="tok-p">,</span><span class="tok-s2">&quot;(a,f4.2,sp,f5.2,a)&quot;</span><span class="tok-p">)</span> <span class="tok-s2">&quot;z:&quot;</span><span class="tok-p">,</span> <span class="tok-kt">real</span><span class="tok-p">(</span><span class="tok-n">z</span><span class="tok-p">),</span> <span class="tok-nb">aimag</span><span class="tok-p">(</span><span class="tok-n">z</span><span class="tok-p">),</span> <span class="tok-s2">&quot;i&quot;</span>
+    <span class="tok-k">write</span> <span class="tok-p">(</span><span class="tok-o">*</span><span class="tok-p">,</span><span class="tok-s2">&quot;(a,f4.2,sp,f5.2,a)&quot;</span><span class="tok-p">)</span> <span class="tok-s2">&quot;w:&quot;</span><span class="tok-p">,</span> <span class="tok-kt">real</span><span class="tok-p">(</span><span class="tok-n">w</span><span class="tok-p">),</span> <span class="tok-nb">aimag</span><span class="tok-p">(</span><span class="tok-n">w</span><span class="tok-p">),</span> <span class="tok-s2">&quot;i&quot;</span>
+
+<span class="tok-k">end program </span><span class="tok-n">coseno</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_strings">Strings</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -1846,8 +1958,8 @@ pre.pygments .tok-il { color: #FF6600 } /* Literal.Number.Integer.Long */
 	<span class="tok-k">use </span><span class="tok-n">iso_fortran_env</span>
 	<span class="tok-k">implicit none</span>
 
-<span class="tok-k">	</span><span class="tok-kt">character</span><span class="tok-p">(</span><span class="tok-nb">len</span><span class="tok-o">=</span><span class="tok-mi">5</span><span class="tok-p">)</span><span class="tok-kd">::</span> <span class="tok-n">s</span>			<span class="tok-c">! Una cadena</span>
-	<span class="tok-kt">character</span><span class="tok-p">(</span><span class="tok-nb">len</span><span class="tok-o">=</span><span class="tok-p">:)</span><span class="tok-kd">::</span> <span class="tok-n">s_array</span><span class="tok-p">(:)</span>	<span class="tok-c">! Un array de cadenas</span>
+<span class="tok-k">	</span><span class="tok-kt">character</span><span class="tok-p">(</span><span class="tok-nb">len</span><span class="tok-o">=</span><span class="tok-mi">5</span><span class="tok-p">)</span><span class="tok-kd">::</span> <span class="tok-n">s</span>            <span class="tok-c">! Una cadena</span>
+	<span class="tok-kt">character</span><span class="tok-p">(</span><span class="tok-nb">len</span><span class="tok-o">=</span><span class="tok-p">:)</span><span class="tok-kd">::</span> <span class="tok-n">s_array</span><span class="tok-p">(:)</span>   <span class="tok-c">! Un array de cadenas</span>
 
 	<span class="tok-c">! SETUP -----------</span>
 	<span class="tok-c">! Reserva espacio para la 10 cadenas de 5 caractéres cada una</span>
@@ -1856,6 +1968,131 @@ pre.pygments .tok-il { color: #FF6600 } /* Literal.Number.Integer.Long */
 <span class="tok-k">end program </span><span class="tok-n">Strings</span></code></pre>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_estructuras_de_datos">Estructuras de datos</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_estructura">Estructura</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="fortran"><span></span><span class="tok-k">type</span> <span class="tok-kd">::</span> <span class="tok-n">persona</span>
+	<span class="tok-kt">character</span><span class="tok-p">(</span><span class="tok-nb">len</span><span class="tok-o">=</span><span class="tok-mi">12</span><span class="tok-p">)</span><span class="tok-kd">::</span> <span class="tok-n">nombre</span><span class="tok-p">,</span> <span class="tok-n">apellido</span>
+	<span class="tok-kt">integer</span><span class="tok-kd">::</span> <span class="tok-n">edad</span>
+<span class="tok-k">end type</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_estructura_paramétrica_o_template">Estructura paramétrica o template</h3>
+<div class="paragraph">
+<p>Los parámetros de una estructura de este tipo pueden tener el atributo <strong>len</strong> o <strong>kind</strong> para
+especificar la longitud de una cadena o la de un tipo de datos como las <strong>template</strong> de C++.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="fortran"><span></span><span class="tok-k">program </span><span class="tok-n">parametric_structure</span>
+    <span class="tok-k">type</span> <span class="tok-kd">::</span> <span class="tok-n">persona</span><span class="tok-p">(</span><span class="tok-n">n</span><span class="tok-p">)</span>
+        <span class="tok-kt">integer</span><span class="tok-p">,</span> <span class="tok-nb">len</span><span class="tok-kd">::</span> <span class="tok-n">n</span> <span class="tok-o">=</span> <span class="tok-mi">10</span>     <span class="tok-c">! Parámetro de la estructura con valor por defecto</span>
+
+        <span class="tok-kt">character</span><span class="tok-p">(</span><span class="tok-nb">len</span><span class="tok-o">=</span><span class="tok-n">n</span><span class="tok-p">)</span><span class="tok-kd">::</span> <span class="tok-n">nombre</span><span class="tok-p">,</span> <span class="tok-n">apellidos</span>
+		<span class="tok-kt">integer</span><span class="tok-kd">::</span> <span class="tok-n">edad</span>
+    <span class="tok-k">end type</span>
+
+<span class="tok-k">    type</span><span class="tok-p">(</span><span class="tok-n">persona</span><span class="tok-p">(</span><span class="tok-mi">20</span><span class="tok-p">))</span> <span class="tok-kd">::</span> <span class="tok-n">p1</span>
+
+    <span class="tok-n">p1</span> <span class="tok-p">%</span> <span class="tok-n">nombre</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;Samuel&quot;</span>
+
+<span class="tok-k">end program </span><span class="tok-n">parametric_structure</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_array_de_estructuras">Array de estructuras</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="fortran"><span></span><span class="tok-k">type</span> <span class="tok-kd">::</span> <span class="tok-n">body</span>
+  <span class="tok-kt">character</span><span class="tok-p">(</span><span class="tok-nb">len</span> <span class="tok-o">=</span><span class="tok-mi">4</span><span class="tok-p">)</span> <span class="tok-kd">::</span> <span class="tok-n">units</span>
+  <span class="tok-kt">real</span> <span class="tok-kd">::</span> <span class="tok-n">mass</span>
+  <span class="tok-kt">real</span> <span class="tok-kd">::</span> <span class="tok-n">pos</span><span class="tok-p">(</span><span class="tok-mi">3</span><span class="tok-p">),</span> <span class="tok-n">vel</span><span class="tok-p">(</span><span class="tok-mi">3</span><span class="tok-p">)</span>
+<span class="tok-k">end type </span><span class="tok-n">body</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>y la forma de usarlo es</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="fortran"><span></span><span class="tok-k">type</span><span class="tok-p">(</span><span class="tok-n">body</span><span class="tok-p">),</span> <span class="tok-k">allocatable</span> <span class="tok-kd">::</span> <span class="tok-n">vector</span><span class="tok-p">(:)</span>
+<span class="tok-k">allocate</span><span class="tok-p">(</span><span class="tok-n">vector</span><span class="tok-p">(</span><span class="tok-n">n</span><span class="tok-p">))</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_estructura_de_arrays">Estructura de arrays</h3>
+<div class="paragraph">
+<p>Permite vectorizar y optimizar código. En este caso se usa una estructura paramétrica</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="fortran"><span></span><span class="tok-k">type</span> <span class="tok-kd">::</span> <span class="tok-n">body_p</span><span class="tok-p">(</span><span class="tok-n">k</span><span class="tok-p">,</span> <span class="tok-n">n</span><span class="tok-p">)</span>                <span class="tok-c">! Estructura paramétrica template</span>
+  <span class="tok-kt">integer</span><span class="tok-p">,</span> <span class="tok-nb">kind</span> <span class="tok-kd">::</span> <span class="tok-n">k</span> <span class="tok-o">=</span> <span class="tok-nb">kind</span><span class="tok-p">(</span><span class="tok-mf">1.0</span><span class="tok-p">)</span>    <span class="tok-c">! Tipo</span>
+  <span class="tok-kt">integer</span><span class="tok-p">,</span> <span class="tok-nb">len</span> <span class="tok-kd">::</span>   <span class="tok-n">n</span> <span class="tok-o">=</span> <span class="tok-mi">1</span>           <span class="tok-c">! Número</span>
+
+  <span class="tok-kt">character</span><span class="tok-p">(</span><span class="tok-nb">len</span><span class="tok-o">=</span><span class="tok-mi">4</span><span class="tok-p">)</span> <span class="tok-kd">::</span> <span class="tok-n">units</span>
+  <span class="tok-kt">real</span><span class="tok-p">(</span><span class="tok-nb">kind</span><span class="tok-o">=</span><span class="tok-n">k</span><span class="tok-p">)</span> <span class="tok-kd">::</span> <span class="tok-n">mass</span><span class="tok-p">(</span><span class="tok-n">n</span><span class="tok-p">)</span>
+  <span class="tok-kt">real</span><span class="tok-p">(</span><span class="tok-nb">kind</span><span class="tok-o">=</span><span class="tok-n">k</span><span class="tok-p">)</span> <span class="tok-kd">::</span> <span class="tok-n">pos</span><span class="tok-p">(</span><span class="tok-n">n</span><span class="tok-p">,</span><span class="tok-mi">3</span><span class="tok-p">),</span>   <span class="tok-n">vel</span> <span class="tok-p">(</span><span class="tok-n">n</span><span class="tok-p">,</span><span class="tok-mi">3</span><span class="tok-p">)</span>
+<span class="tok-k">end type </span><span class="tok-n">body_p</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>y se usa de esta manera</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="fortran"><span></span><span class="tok-k">type</span><span class="tok-p">(</span><span class="tok-n">body_p</span><span class="tok-p">(</span><span class="tok-n">n</span><span class="tok-o">=</span><span class="tok-p">:)),</span> <span class="tok-k">allocatable</span> <span class="tok-kd">::</span>  <span class="tok-n">vector</span>
+<span class="tok-k">allocate</span><span class="tok-p">(</span><span class="tok-n">body_p</span><span class="tok-p">(</span><span class="tok-n">n</span><span class="tok-o">=</span><span class="tok-mi">20</span><span class="tok-p">)</span> <span class="tok-kd">::</span> <span class="tok-n">vector</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./img/array_de_estructuras_y_estructura_de_arrays.png" alt="array de estructuras y estructura de arrays">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_entrada_y_salida">Entrada y salida</h2>
+<div class="sectionbody">
+<table class="tableblock frame-ends grid-all" style="width: 50%;">
+<caption class="title">Table 1. Formatos de entrada y salida</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Modificador</th>
+<th class="tableblock halign-left valign-top">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cadena</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fa,b</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Real de anchura total a y número de decimales b</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Forzar signo positivo</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect1">
@@ -2005,7 +2242,7 @@ findent --vim_fortran &gt; <span class="tok-nv">$vimroot</span>/after/indent/for
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-12-09 20:12:26 +0100
+Last updated 2021-03-21 11:55:15 +0100
 </div>
 </div>
 </body>

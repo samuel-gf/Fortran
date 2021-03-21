@@ -1,0 +1,31 @@
+== Language Server
+
+Se encuentra en el paquete `fortran-language-server`. Puede ser arrancado mediante la orden `fortls`
+
+El paquete contiene estos archivos
+
+[source]
+--
+samuel@hp-i5:~$ apt-file list fortran-language-server 
+
+fortran-language-server: /usr/bin/fortls  
+fortran-language-server: /usr/lib/python3/dist-packages/fortls/__init__.py
+fortran-language-server: /usr/lib/python3/dist-packages/fortls/intrinsic_funs.json
+fortran-language-server: /usr/lib/python3/dist-packages/fortls/intrinsic_mods.json
+fortran-language-server: /usr/lib/python3/dist-packages/fortls/intrinsics.py
+fortran-language-server: /usr/lib/python3/dist-packages/fortls/jsonrpc.py
+fortran-language-server: /usr/lib/python3/dist-packages/fortls/keywords.json
+fortran-language-server: /usr/lib/python3/dist-packages/fortls/langserver.py
+fortran-language-server: /usr/lib/python3/dist-packages/fortls/objects.py
+fortran-language-server: /usr/lib/python3/dist-packages/fortls/parse_fortran.py
+fortran-language-server: /usr/lib/python3/dist-packages/fortls/statements.json
+fortran-language-server: /usr/lib/python3/dist-packages/fortran_language_server-1.10.3.egg-info/PKG-INFO
+fortran-language-server: /usr/lib/python3/dist-packages/fortran_language_server-1.10.3.egg-info/dependency_links.txt
+fortran-language-server: /usr/lib/python3/dist-packages/fortran_language_server-1.10.3.egg-info/entry_points.txt
+fortran-language-server: /usr/lib/python3/dist-packages/fortran_language_server-1.10.3.egg-info/requires.txt
+fortran-language-server: /usr/lib/python3/dist-packages/fortran_language_server-1.10.3.egg-info/top_level.txt
+fortran-language-server: /usr/share/doc/fortran-language-server/README.rst.gz
+fortran-language-server: /usr/share/doc/fortran-language-server/changelog.Debian.gz
+fortran-language-server: /usr/share/doc/fortran-language-server/copyright
+fortran-language-server: /usr/share/man/man1/fortls.1.gz
+--

@@ -1,0 +1,79 @@
+== Estructuras de datos
+
+=== Estructura
+
+[source,fortran]
+--
+type :: persona
+	character(len=12):: nombre, apellido
+	integer:: edad
+end type
+--
+
+=== Estructura paramétrica o template
+
+Los parámetros de una estructura de este tipo pueden tener el atributo *len* o *kind* para
+especificar la longitud de una cadena o la de un tipo de datos como las *template* de C++.
+
+[source,fortran]
+--
+program parametric_structure
+    type :: persona(n)
+        integer, len:: n = 10     ! Parámetro de la estructura con valor por defecto
+
+        character(len=n):: nombre, apellidos
+		integer:: edad
+    end type
+
+    type(persona(20)) :: p1						
+
+    p1 % nombre = "Samuel"
+
+end program parametric_structure
+--
+
+
+=== Array de estructuras
+[source,fortran]
+--
+type :: body
+  character(len =4) :: units
+  real :: mass
+  real :: pos(3), vel(3)
+end type body
+--
+
+y la forma de usarlo es
+
+
+[source,fortran]
+--
+type(body), allocatable :: vector(:)
+allocate(vector(n))
+--
+
+=== Estructura de arrays
+
+Permite vectorizar y optimizar código. En este caso se usa una estructura paramétrica
+
+[source,fortran]
+--
+type :: body_p(k, n)                ! Estructura paramétrica template
+  integer, kind :: k = kind(1.0)    ! Tipo
+  integer, len ::   n = 1           ! Número
+
+  character(len=4) :: units
+  real(kind=k) :: mass(n)
+  real(kind=k) :: pos(n,3),   vel (n,3)
+end type body_p
+--
+
+y se usa de esta manera
+
+[source,fortran]
+--
+type(body_p(n=:)), allocatable ::  vector
+allocate(body_p(n=20) :: vector)
+--
+
+image::./img/array_de_estructuras_y_estructura_de_arrays.png[]
