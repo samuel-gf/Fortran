@@ -1,0 +1,9 @@
+== Medición del tiempo de ejecución
+
+[source,fortran]
+--
+	real:: t1, t2
+	call cpu_time(t1)
+	! loop
+	call cpu_time(t2)
+--

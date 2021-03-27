@@ -32,6 +32,33 @@ program parametric_structure
 end program parametric_structure
 --
 
+=== Array allocatable
+
+Se trata de un array que reserva memoria en tiempo de ejecución. Tampoco es necesario especificar su
+tamaño en el código.
+
+Reservar memoria dos veces para el mismo array genera un error, por eso es conveniente comprobar
+antes de reservar la memoria si ya ha sido previamente reservada.
+
+[source, fortran]
+--
+program allocatable_array
+    integer, allocatable:: a(:)
+    real, allocatable::    b(:)
+    real, parameter:: pi = 3.141592
+    integer:: i
+
+    a = [(i, i=1,10)]                    ! a = [1, 2, .., 9, 10]
+    b = [(sin(2*pi*i/1000.), i=0,1000)]  ! b = [0, 6.28e-3, ...]
+
+    if (.not. allocated(a)) then         ! Para evitar error de doble asignación
+        allocate(a(10))
+    end if
+end program allocatable_array
+--
+
+
+
 
 === Array de estructuras
 [source,fortran]
