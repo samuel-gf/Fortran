@@ -1,4 +1,4 @@
-program Integral_01
+program Integral_01_coarray
 ! Calcular $\int_{\gamma=\{|z|=1\}} \frac{Ln z}{z} dz$
 ! SOLUCIÓN
 ! Para calular esta integral compleja debemos hallar el camino y la derivada de este a lo largo del
@@ -10,30 +10,40 @@ program Integral_01
 
     use iso_fortran_env
     implicit none
+
     real, parameter:: pi = 3.141592654
     real, parameter:: t_0=0, t_end=2*pi
-    real(real64), parameter:: dt = 0.0000001
-    real(real64):: t
-    complex(real64):: s                 ! Suma
+    real(real64), parameter:: dt = 0.000001
+    real(real64):: t[*]
+    complex(real64):: s[*]                  ! Suma
     complex:: i = cmplx(0,1)
 
     ! Inicializar variables
-    t = t_0
-    s = cmplx(0,0)
+    t = t_0 + dt * this_image()-1
+    s = 0
 
     ! Cabecera
-    write (*, "(a25)") "------------------------"
-    write (*,"(a8,a8,a9)") "Iter.", "Re", "Im"
-    write (*, "(a25)") "------------------------"
+    if (this_image() == 1) then
+        write (*, "(a25)") "------------------------"
+        write (*,"(a8,a8,a9)") "Iter.", "Re", "Im"
+        write (*, "(a25)") "------------------------"
+    end if
+
+    sync all
+
+    ! Bucle principal
     do while (t <= t_end)
         s = s + f(t) * fp(t) * dt
-        !write (*,"(a11,f8.2, sp, f8.2, a1)") "Resultado: ", s%re, s%im, "i"
-        t = t + dt
+        t = t + dt * num_images()
     end do
+    sync all
 
-    ! Mostrar resultados
-    write (*,"(a11,f8.2, sp, f8.2, a1)") "Resultado: ", s%re, s%im, "i"
-    write (*, "(a25)") "------------------------"
+    call co_sum(s)   
+    if (this_image() == 1) then
+        write (*,"(f8.2,f8.2, sp, f8.2, a1)") t, s%re, s%im, "i"
+        write (*, "(a25)") "------------------------"
+    end if
+
 
 
 
@@ -41,7 +51,7 @@ program Integral_01
 contains
 
     complex(real64) function f(t) result (res)
-        ! Función a integrar en función de t
+        ! Función a integrar: f(gamma(t))
         implicit none
         real(real64), intent(in):: t
         res = (i*t)/(exp(i*t))
@@ -49,10 +59,10 @@ contains
 
 
     complex(real64) function fp(t) result(res)
-        ! Derivada del camino en función de t
+        ! Derivada del camino: gammma'(t)
         implicit none
         real(real64), intent(in):: t
         res = i * exp(i*t)
     end function fp
 
-end program Integral_01
+end program Integral_01_coarray

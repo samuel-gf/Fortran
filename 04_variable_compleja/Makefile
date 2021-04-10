@@ -20,9 +20,15 @@ app mod:
 	@mkdir -p app
 	@mkdir -p mod
 
+app/integral_01_coarray: src/integral_01_coarray.f90
+	ifort $< -coarray -o $@
+	#export FOR_COARRAY_NUM_IMAGES=8
+	#time ./app/integral_01_coarray
+
 # Caso genérico
 app/%: src/%.f90 
 	$(FC) $(ARGS) $< -o $@
+
 
 clean:
 	@rm -f $(TARGETS)

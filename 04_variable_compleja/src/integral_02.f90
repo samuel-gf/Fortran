@@ -11,7 +11,7 @@ program Integral_02
     implicit none
     real, parameter:: pi = 3.141592654
     real, parameter:: t_0=0, t_end=1
-    real, parameter:: dt = 0.00001
+    real, parameter:: dt = 0.001
     real:: t
     complex:: s                 ! Suma
     complex:: i = cmplx(0,1)
@@ -21,13 +21,15 @@ program Integral_02
     s = cmplx(0,0)
 
     ! Bucle de la integral
+    write (*, "(a25)") "------------------------"
+    write (*,"(a8,a8,a9)") "Iter.", "Re", "Im"
+    write (*, "(a25)") "------------------------"
     do while (t <= t_end)
         s = s + f(t) * fp(t) * dt
+        write (*,"(f8.2,f8.2, sp, f8.2, a1)") t, s%re, s%im, "i"
         t = t + dt
     end do
-
-    ! Mostrar resultados
-    write (*,"(a11,f8.2, sp, f8.2, a1)") "Resultado: ", s%re, s%im, "i"
+    write (*, "(a25)") "------------------------"
 
 
 
@@ -35,7 +37,7 @@ program Integral_02
 contains
 
     complex function f(t) result (res)
-        ! Función a integrar en función de t
+        ! Función a integrar: f(gamma(t))
         implicit none
         real, intent(in):: t
         res = 2*i*t**2
@@ -43,7 +45,7 @@ contains
 
 
     complex function fp(t) result(res)
-        ! Derivada del camino en función de t
+        ! Derivada del camino: gammma'(t)
         implicit none
         real, intent(in):: t
         res = 1+i
