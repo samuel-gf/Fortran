@@ -1,5 +1,6 @@
 github
 tmp
+app
 *.dat
 *.mod
 *.a
