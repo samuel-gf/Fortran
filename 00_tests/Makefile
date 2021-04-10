@@ -38,6 +38,9 @@ app/pi_sum: src/pi_sum.f90
 app/%: src/%.f90
 	$(FC) $(ARGS) -o $@ $<
 
+app/%: src/%.f
+	$(FC) -ffree-form -o $@ $< 
+
 clean:
 	@rm -f $(TARGETS)
 	@rm -f app/mod/*.mod app/mod/*.o

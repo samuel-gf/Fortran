@@ -1,8 +1,8 @@
 FC = gfortran
 CAF = caf
-SRC = $(wildcard src/*.f)
+SRC = $(wildcard src/*.f90)
 FILES_NO_EXT = $(notdir $(SRC))
-TARGETS = $(addprefix app/,$(FILES_NO_EXT:.f=))
+TARGETS = $(addprefix app/,$(FILES_NO_EXT:.f90=))
 
 # Modules
 MOD_SRC = $(wildcard src/mod/*.f)
@@ -21,7 +21,7 @@ app mod:
 	@mkdir -p mod
 
 # Caso genérico
-app/%: src/%.f 
+app/%: src/%.f90 
 	$(FC) $(ARGS) $< -o $@
 
 clean:
