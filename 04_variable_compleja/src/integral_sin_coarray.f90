@@ -14,25 +14,25 @@ program Integral_01
     real, parameter:: t_0=0, t_end=2*pi
     real(real64), parameter:: dt = 0.0000001
     real(real64):: t
-    complex(real64):: s                 ! Suma
+    complex(real64):: suma
     complex:: i = cmplx(0,1)
 
     ! Inicializar variables
     t = t_0
-    s = cmplx(0,0)
+	suma = 0
 
     ! Cabecera
     write (*, "(a25)") "------------------------"
     write (*,"(a8,a8,a9)") "Iter.", "Re", "Im"
     write (*, "(a25)") "------------------------"
     do while (t <= t_end)
-        s = s + f(t) * fp(t) * dt
-        !write (*,"(a11,f8.2, sp, f8.2, a1)") "Resultado: ", s%re, s%im, "i"
+        suma = suma + f(t) * fp(t) * dt
+        write (*,"(a11,f8.2, sp, f8.2, a1)") "Resultado: ", suma%re, suma%im, "i"
         t = t + dt
     end do
 
     ! Mostrar resultados
-    write (*,"(a11,f8.2, sp, f8.2, a1)") "Resultado: ", s%re, s%im, "i"
+    write (*,"(a11,f8.2, sp, f8.2, a1)") "Resultado: ", suma%re, suma%im, "i"
     write (*, "(a25)") "------------------------"
 
 

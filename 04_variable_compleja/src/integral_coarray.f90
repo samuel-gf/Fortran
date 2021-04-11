@@ -15,33 +15,23 @@ program Integral_01_coarray
     real, parameter:: t_0=0, t_end=2*pi
     real(real64), parameter:: dt = 0.000001
     real(real64):: t[*]
-    complex(real64):: s[*]                  ! Suma
+    complex(real64):: suma[*]
     complex:: i = cmplx(0,1)
 
     ! Inicializar variables
     t = t_0 + dt * this_image()-1
-    s = 0
-
-    ! Cabecera
-    if (this_image() == 1) then
-        write (*, "(a25)") "------------------------"
-        write (*,"(a8,a8,a9)") "Iter.", "Re", "Im"
-        write (*, "(a25)") "------------------------"
-    end if
-
-    sync all
+    suma = 0
 
     ! Bucle principal
     do while (t <= t_end)
-        s = s + f(t) * fp(t) * dt
+        suma = suma + f(t) * fp(t) * dt
         t = t + dt * num_images()
     end do
-    sync all
 
-    call co_sum(s)   
+    ! Sumar los resultados y mostrarlos en pantalla
+    call co_sum(suma)
     if (this_image() == 1) then
-        write (*,"(f8.2,f8.2, sp, f8.2, a1)") t, s%re, s%im, "i"
-        write (*, "(a25)") "------------------------"
+        write (*,"(f8.2,f8.2, sp, f8.2, a1)") t, suma%re, suma%im, "i"
     end if
 
 
