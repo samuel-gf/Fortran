@@ -1,7 +1,6 @@
-FC = gfortran
-SRC = $(wildcard src/*.f)
-FILES_NO_EXT = $(notdir $(SRC))
-TARGETS = $(addprefix bin/,$(FILES_NO_EXT:.f=))
+FC=gfortran
+MODULE=obj/mod_utils.o mod_utils.mod
+TARGETS=01a 01b
 
 
 # Arguments gfortran
@@ -11,20 +10,25 @@ ARGS = -std=f2018 -ffree-form
 #ARGS = -free
 
 
-all: mod_utils bin/01 $(TARGETS)
+all: $(addprefix bin/,$(TARGETS))
 
-bin/mod_utils.mod: src/mod_utils.f
-	$(FC) $(ARGS) -c -o $@ $<
-	mv mod_utils.mod bin
+$(MODULE): src/mod_utils.f
+	$(FC) $(ARGS) -c -o obj/mod_utils.o $<
 
-bin/01: bin/mod_utils.mod src/01.f
-	$(FC) $(ARGS) -o $@ $<
 
-run: clear_screen bin/01
-	./bin/01
+# TARGET=01a, 01b, 02a, ...
+bin/%: TARGET=$(notdir $@)
+bin/%: src/%.f $(MODULE) 
+	$(FC) $(ARGS) -c -o obj/$(TARGET).o $<
+	$(FC) $(ARGS) -o bin/$(TARGET) obj/$(TARGET).o obj/mod_utils.o
+
+
+run: clear_screen bin/01a
+	./bin/01a
 
 clear_screen:
 	clear
 
 clean:
-	@rm -f bin/*
+	rm -f bin/* obj/*
+	rm -f *.mod *.o
