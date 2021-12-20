@@ -1,4 +1,4 @@
-program Integral_01_coarray
+program Integral_coarray
 ! Calcular $\int_{\gamma=\{|z|=1\}} \frac{Ln z}{z} dz$
 ! SOLUCIÓN
 ! Para calular esta integral compleja debemos hallar el camino y la derivada de este a lo largo del
@@ -55,4 +55,4 @@ contains
         res = i * exp(i*t)
     end function fp
 
-end program Integral_01_coarray
+end program Integral_coarray

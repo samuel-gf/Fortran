@@ -1,4 +1,4 @@
-program Integral_01
+program Integral_sin_coarray
 ! Calcular $\int_{\gamma=\{|z|=1\}} \frac{Ln z}{z} dz$
 ! SOLUCIÓN
 ! Para calular esta integral compleja debemos hallar el camino y la derivada de este a lo largo del
@@ -19,7 +19,7 @@ program Integral_01
 
     ! Inicializar variables
     t = t_0
-	suma = 0
+    suma = 0
 
     ! Cabecera
     write (*, "(a25)") "------------------------"
@@ -27,12 +27,11 @@ program Integral_01
     write (*, "(a25)") "------------------------"
     do while (t <= t_end)
         suma = suma + f(t) * fp(t) * dt
-        write (*,"(a11,f8.2, sp, f8.2, a1)") "Resultado: ", suma%re, suma%im, "i"
+        write (*,"(f8.4,f8.2, sp, f8.2, a1)") t, suma%re, suma%im, "i"
         t = t + dt
     end do
 
     ! Mostrar resultados
-    write (*,"(a11,f8.2, sp, f8.2, a1)") "Resultado: ", suma%re, suma%im, "i"
     write (*, "(a25)") "------------------------"
 
 
@@ -55,4 +54,4 @@ contains
         res = i * exp(i*t)
     end function fp
 
-end program Integral_01
+end program Integral_sin_coarray
