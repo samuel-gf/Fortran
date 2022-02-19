@@ -1,4 +1,4 @@
-program Advent_of_code_2021_01
+program Advent_of_code_2021_01a
 use iso_fortran_env
 use mod_utils 
 
@@ -50,7 +50,4 @@ end do
 
 write (*,"(i5, a)") n, " registers are greater"
 
-end program Advent_of_code_2021_01
-
-
-
+end program Advent_of_code_2021_01a

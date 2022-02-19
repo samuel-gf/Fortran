@@ -5,12 +5,13 @@ app
 *.mod
 *.a
 *.o
-00_test/app
+00_tests
 01_benchmarks/data
 01_benchmarks/data.bak
 01_benchmarks/1.txt
 01_benchmarks/2.txt
 03_bachillerato/app
 05_fpm
+2021_advent_of_code/bin
+2021_advent_of_code/dat
 build
-00_tests/build/

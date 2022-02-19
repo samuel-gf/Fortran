@@ -30,5 +30,5 @@ app/%: src/%.f90
 
 
 clean:
-	@rm -f $(TARGETS)
+	@rm -f app/*
 	@rm -f mod/*.mod mod/*.o

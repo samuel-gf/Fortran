@@ -1,6 +1,6 @@
 FC=gfortran
 MODULE=obj/mod_utils.o mod_utils.mod
-TARGETS=01a 01b
+TARGETS=03a 03b
 
 
 # Arguments gfortran

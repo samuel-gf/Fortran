@@ -1,6 +1,7 @@
 module mod_utils
 implicit none
 
+
 contains
 
 integer function str_to_num(str) result(total)

@@ -1,13 +1,18 @@
 FC = gfortran
 CAF = caf
 SRC = $(wildcard src/*.f90)
-FILES_NO_EXT = $(notdir $(SRC))
-TARGETS = $(addprefix app/,$(FILES_NO_EXT:.f90=))
+FILES_NO_DIR = $(notdir $(SRC))
+TARGETS = $(addprefix app/,$(FILES_NO_DIR:.f90=))
+
+SRC_F = $(wildcard src/*.f)
+FILES_NO_DIR_F = $(notdir $(SRC_F))
+TARGETS_F = $(addprefix app/,$(FILES_NO_DIR_F:.f=))
+
 MOD_SRC = $(wildcard src/mod/*.f90)
 MOD_TARGETS = $(addprefix app/mod/,$(notdir $(MOD_SRC:.f90=.mod)))
 ARGS = -ffree-form -fimplicit-none -O3 -L/opt/OpenBLAS/lib -fbacktrace
 
-all: $(TARGETS)
+all: $(TARGETS) $(TARGETS_F)
 
 
 app/parallel: src/parallel.f90
