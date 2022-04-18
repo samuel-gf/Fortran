@@ -25,7 +25,7 @@ program hipoteca
         ! Pagar la hipoteca y apartar 1200€/mes
         ! Invertir 250 del estudiante en hipoteca al mes
         !e_amortiz = 28000 + (10*250) - 12*(pagar/2+1200)
-        e_amortiz = 12*500
+        e_amortiz = 12*300
 
         write (*, "(i4, 5f15.2)") year, capital, pagar, c_interes/12, c_amortiz/12, e_amortiz/12
         capital = capital - c_amortiz - e_amortiz
