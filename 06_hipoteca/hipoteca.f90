@@ -11,6 +11,20 @@ program cuotas
     integer, parameter:: n_cuotas = 28*12
     real, parameter:: interes_fijo = 0.0105                         ! Interés fijo
 
+    character(len=12)::s_meses(12)
+    s_meses(1) = "Ene"
+    s_meses(2) = "Feb"
+    s_meses(3) = "Mar"
+    s_meses(4) = "Abr"
+    s_meses(5) = "May"
+    s_meses(6) = "Jun"
+    s_meses(7) = "Jul"
+    s_meses(8) = "Ago"
+    s_meses(9) = "Sep"
+    s_meses(10)= "Oct"
+    s_meses(11)= "Nov"
+    s_meses(12)= "Dic"
+
     capital = 323600                                                ! Capital inicial
     t_interes = 0
     year = 0 
@@ -27,9 +41,15 @@ program cuotas
         ! Pagar la hipoteca y apartar 1200€/mes
         ! Invertir 250 del estudiante en hipoteca al mes
         !e_amortiz = 28000 + (10*250) - 12*(pagar/2+1200)
-        e_amortiz = 100
+        e_amortiz = 0
+
+        !if (mes > 16) then
+        !    e_amortiz = 250*2
+        !end if
 
         write (*, "(i3, i4, 5f15.2)") year, mes, capital, pagar, c_interes, c_amortiz, e_amortiz
+        !write (*, "(i3, i4, 5f15.2)") year, mes, " ", s_meses(mod(mes+3,12)+1), capital, pagar, c_interes, c_amortiz, e_amortiz
+
         capital = capital - c_amortiz - e_amortiz
         if (mod(mes, 12) .eq. 0)    year = year + 1
         if (capital < 0) exit

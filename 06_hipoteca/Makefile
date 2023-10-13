@@ -7,8 +7,8 @@ ARGS = -std=f2018 -ffree-form
 
 run: hipoteca
 
-hipoteca: hipoteca.f
-	$(FC) $(ARGS) -o hipoteca hipoteca.f
+hipoteca: hipoteca.f90
+	$(FC) $(ARGS) -o $@ $<
 
 clean:
 	rm -f hipoteca cuota_mes
