@@ -12,8 +12,6 @@ bin:
 	mkdir -p bin
 
 push:
-	git add .
-	git commit
 	git push origin main
 
 clean:
