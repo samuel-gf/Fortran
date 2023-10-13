@@ -8,9 +8,13 @@ all: bin $(TARGETS)
 bin/%: %.f90
 	$(FC) $(ARGS) -o $@ $<
 
-
 bin:
 	mkdir -p bin
+
+push:
+	git add .
+	git commit
+	git push origin main
 
 clean:
 	rm -f bin/*
