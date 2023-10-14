@@ -13,6 +13,7 @@ bin:
 
 up:
 	git add .
+	git commit
 	git push origin main
 
 clean:
