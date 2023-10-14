@@ -23,16 +23,16 @@ program terna_pitagorica
     end if
 
     ! Comprobar si (a,b,c) es terna pitagórica
+    !$OMP parallel do private(a, b, c)
     do a=1, max
         do b=a+1, max
             do c=b+1, max
                 if (a**2+b**2 .eq. c**2) then
-                    !c = sqrt(real(a*a + b*b))
-                    !if (int(c) == c) then
                     write(*,'(3i8)') a, b, c
                 end if
             end do
         end do
     end do
+    !$OMP end parallel do
 
 end program terna_pitagorica
