@@ -1,4 +1,6 @@
 ! Busca ternas pitagóricas
+! Acepta un parámetro por línea de comandos para buscar entre todos
+! los enteros comprendidos entre 1 y max
 program terna_pitagorica
     use iso_fortran_env
     implicit none
@@ -17,7 +19,7 @@ program terna_pitagorica
     end if
     call get_command_argument(1, argv)
     read(argv,*,iostat=ios) max
-    if (ios /= 0) then
+    if (ios .ne. 0) then
         write(error_unit,*) "Error de uso: Argumento «", trim(argv), "» no es un número"
         stop 2
     end if

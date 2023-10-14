@@ -1,7 +1,7 @@
-FC = gfortran
+FC = ifx
 SRC = $(wildcard *.f90)
 TARGETS = $(addprefix bin/,$(SRC:.f90=))
-ARGS=-fopenmp
+ARGS=-qopenmp
 
 all: bin $(TARGETS)
 
