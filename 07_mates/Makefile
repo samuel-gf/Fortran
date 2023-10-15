@@ -1,15 +1,18 @@
 FC = ifx
 SRC = $(wildcard *.f90)
 TARGETS = $(addprefix bin/,$(SRC:.f90=))
-ARGS=-qopenmp
+ARGS=-fopenmp -warn all
 
-all: bin $(TARGETS)
+all: bin out $(TARGETS)
 
 bin/%: %.f90
 	$(FC) $(ARGS) -o $@ $<
 
 bin:
 	mkdir -p bin
+
+out:
+	mkdir -p out
 
 up:
 	git add .

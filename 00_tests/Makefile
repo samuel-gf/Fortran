@@ -1,4 +1,4 @@
-FC = gfortran
+FC = ifort
 CAF = caf
 SRC = $(wildcard src/*.f90)
 FILES_NO_DIR = $(notdir $(SRC))
@@ -14,6 +14,8 @@ ARGS = -ffree-form -fimplicit-none -O3 -L/opt/OpenBLAS/lib -fbacktrace
 
 all: $(TARGETS) $(TARGETS_F)
 
+app/race_condition: src/race_condition.f90
+	$(FC) -qopenmp -o $@ $<
 
 app/parallel: src/parallel.f90
 # Test it with -Ofast
