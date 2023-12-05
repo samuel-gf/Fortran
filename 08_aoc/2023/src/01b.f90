@@ -1,12 +1,17 @@
-program aoc_01a
+program aoc_01b
     use mod_utils
     implicit none
 
-    integer:: f, ios
+    integer:: f, ios, i
     character:: c, calibration(2)
     integer:: total
 
+    character(len=10), allocatable:: a, b
+    character(len=5), dimension(10):: num = ["zero", "one","two", "three", "four", "five", "six", "seven", "eight", "nine"]
+    character(len=5):: str
+
     total = 0
+
     calibration = "__"
     open(newunit=f, file="in/01.txt", iostat=ios, access="sequential")
     read(f, "(a)", iostat=ios, advance="no") c
@@ -26,6 +31,7 @@ program aoc_01a
     end do
     close(f)
 
+
 contains
 
     subroutine regular_character(c, calibration)
@@ -43,4 +49,8 @@ contains
         end select
     end subroutine
 
-end program aoc_01a
+
+
+
+
+end program aoc_01b

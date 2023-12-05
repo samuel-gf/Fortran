@@ -25,8 +25,8 @@ integer function str_to_num(str) result(total)
 end function
 
 
+! Get number of lines in an open file
 integer function lines_in_file(fd) result(n)
-    ! Get number of lines in an open file
     implicit none
     integer, intent(in):: fd
     integer:: ios
@@ -41,6 +41,7 @@ integer function lines_in_file(fd) result(n)
     end do
 end function
 
+! Test if a character c, is a digit [0-9]
 logical function is_digit(c) result(r)
     implicit none
     character, intent(in):: c
@@ -49,6 +50,26 @@ logical function is_digit(c) result(r)
         r = .true.
     end if
 end function
+
+
+! Returns the position of string a in b
+! a: Needle; b: Stack
+integer pure function str_find(a, b) result(pos)
+    implicit none
+    character(len=*), intent(in):: a, b
+    integer:: i, j
+
+    pos = -1
+    str_b: do i=1, len(b)       ! Stack loop
+        str_a: do j=1, len(a)   ! Needle loop
+            if (a(j:j) .ne. b(i+j-1:i+j-1)) cycle str_b
+        end do str_a
+        pos = i
+        exit str_b
+    end do str_b
+end function
+
+
 
 
 end module mod_utils
