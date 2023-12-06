@@ -4,8 +4,8 @@ implicit none
 
 contains
 
-integer function str_to_num(str) result(total)
-    ! From character(len=*) to integer
+! From character(len=*) to integer
+pure integer function str2num(str) result(total)
     implicit none
     character(len=*), intent(in):: str
     integer:: n                         ! Figure
@@ -22,6 +22,16 @@ integer function str_to_num(str) result(total)
             weight = weight * 10
         end if
     end do
+end function
+
+function num2str(n) result(str)
+    implicit none
+    integer, intent(in):: n
+    character(len=80):: str
+    
+    write(str,"(i0)") n
+    str = trim(str)
+
 end function
 
 
@@ -69,6 +79,23 @@ integer pure function str_find(a, b) result(pos)
     end do str_b
 end function
 
+! Replace a with b in c
+pure function str_replace(a, b, c) result(str)
+    implicit none
+    character(len=*), intent(in):: a, b, c
+    character(len=:), allocatable:: str
+    integer:: str_begin, str_end
+
+    str = trim(c)
+    str_begin = str_find(a, c)
+    replace: do
+        if (str_begin .eq. -1) exit replace
+
+        str_end = str_begin + len(a)
+        str = str(1:str_begin-1) // trim(b) // str(str_end:)
+        str_begin = str_find(a, str)
+    end do replace
+end function
 
 
 

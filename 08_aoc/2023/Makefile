@@ -25,7 +25,12 @@ bin:
 	mkdir bin
 
 exec:
-	bin/01b
+	bin/01b >out.txt
+
+up:
+	git add .
+	git commit
+	git push origin main
 
 clean:
 	rm -f mod/* bin/* in/01b.txt
