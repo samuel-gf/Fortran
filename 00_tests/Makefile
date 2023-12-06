@@ -12,7 +12,14 @@ MOD_SRC = $(wildcard src/mod/*.f90)
 MOD_TARGETS = $(addprefix app/mod/,$(notdir $(MOD_SRC:.f90=.mod)))
 ARGS = -ffree-form -fimplicit-none -O3 -L/opt/OpenBLAS/lib -fbacktrace
 
+app/serie: src/serie.f90
+	cat $< | expand -t4 | sponge $<
+	ifort $< -qopenmp -check -o $@
+
 all: $(TARGETS) $(TARGETS_F)
+
+app/arrays: src/arrays.f90
+	ifx $< -o $@
 
 app/race_condition: src/race_condition.f90
 	$(FC) -qopenmp -o $@ $<

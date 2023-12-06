@@ -6,6 +6,8 @@ ARGS=-fopenmp -warn all
 all: bin out $(TARGETS)
 
 bin/%: %.f90
+	@mkdir -p $(dir $@)
+	@expand -t4 $< | sponge $<
 	$(FC) $(ARGS) -o $@ $<
 
 bin:

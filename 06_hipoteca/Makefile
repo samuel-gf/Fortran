@@ -6,6 +6,7 @@ FC=gfortran
 ARGS = -std=f2018 -ffree-form
 
 run: hipoteca
+	./hipoteca >out.txt
 
 hipoteca: hipoteca.f90
 	$(FC) $(ARGS) -o $@ $<
