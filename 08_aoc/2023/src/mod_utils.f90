@@ -97,6 +97,19 @@ pure function str_replace(a, b, c) result(str)
     end do replace
 end function
 
+! Get position of first digit in string
+pure function str_pos_first_digit(str) result(n)
+    implicit none
+    character(len=*):: str
+    character:: c
 
+    do i=1, len(s)
+        c = str(i:i)
+        if ((ichar(c) .ge. 48) .and. (ichar(c). .le. 57)) then
+            n = i
+            exit
+        end
+    end do
+end function
 
 end module mod_utils

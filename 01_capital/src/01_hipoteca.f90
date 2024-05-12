@@ -22,24 +22,33 @@ program cuotas
     capital = 323600 
     t_interes = 0
     year = 0 
+    ! Intereses pagados en caso de no amortizar en ningún momento: 50034.73
+    ! Fecha de terminación de la hipoteca en caso de no amortizar nunca: abril 2050
 
 
     ! Cabecera
     write (*, "(A4, A5, A10, 2A15, A16, 2A15)") "AÑO", "PAGO", "    F_PAGO", "PENDIENTE", "PAGAR/MES", "C.INTERÉS", &
                         "C.AMORTIZADO", "E.AMORTIZADO"
+    pagar = 1112.02                                                                                 ! El primer pago del primer mes
     do i_mes = 1, N_CUOTAS
-        pagar = calcula_cuota_mes(capital, N_CUOTAS-i_mes+1, interes_fijo)                          ! Dinero pagado al banco cada mes
+        pagar = calcula_cuota_mes(capital, N_CUOTAS-i_mes+1, interes_fijo)                         ! Dinero pagado al banco cada mes
         c_interes = (capital * interes_fijo)/12                                                     ! Cuota (parte) correspondiente al interés
         c_amortiz = pagar - c_interes                                                               ! Cuota (Parte) de capital amortizado
         t_interes = t_interes + c_interes                                                           ! Total de interés
 
+        e_amortiz = 0
         ! e_amortiz: Extra amortizado cada mes (amortización parcial)
         ! Amortización parcial. Ahorros mensuales divididos entre tres (ahorro + casa + amortización)
-        e_amortiz = 0
-        if (i_mes .ge. 24) e_amortiz = e_amortiz + 167 + CUOTA_INICIAL - pagar                      ! Amortización mensual
-        if (mod(i_mes-3, 6) .eq. 0 .and. i_mes .ge. 23) e_amortiz = e_amortiz + 2000                 ! Pagas extra
-        t_amortiz = t_amortiz + e_amortiz
-        ! c 170, e 2000 -> Ahorro 15292
+        !e_amortiz = 6000
+        !if (i_mes .ge. 24) e_amortiz = e_amortiz + 167 + CUOTA_INICIAL - pagar                      ! Amortización mensual
+        !if (mod(i_mes-3, 6) .eq. 0 .and. i_mes .ge. 23) e_amortiz = e_amortiz + 2000                 ! Pagas extra
+        if (i_mes .eq. 22) e_amortiz = e_amortiz + 0.1
+        if (i_mes .gt. 29) e_amortiz = e_amortiz + (1112.02-pagar+300)
+        !t_amortiz = t_amortiz + e_amortiz
+        ! c 167, e 2000 -> Ahorro 15232.63
+
+        ! El cálculo más importante
+        !pagar = calcula_cuota_mes(capital, N_CUOTAS-i_mes+1, interes_fijo)                          ! Dinero pagado al banco cada mes
 
         ! Salida
         write (fecha,"(a2,a3,a1,i4)") "  ", s_meses(mod(i_mes+3,12)+1), " ", ((i_mes+3)/12)+2022    ! Fecha

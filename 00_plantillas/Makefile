@@ -4,13 +4,12 @@ TGT=$(addprefix bin/,$(basename $(SRC)))
 
 .PHONY: exec
 
-
 all: mod bin $(TGT) exec
 
 # Source code
-bin/%: src/%.f90 $(MOD)
+bin/%: src/%.f90 in/%.txt $(MOD)
 	@expand -t4 $< | sponge $<
-	ifx -o $@ $<
+	ifx -o $@ -I mod mod/mod_utils.o $<
 
 mod/mod_%.o: src/mod_%.f90
 	ifx -c -o $(basename $<).o $<
@@ -18,19 +17,19 @@ mod/mod_%.o: src/mod_%.f90
 	@mv $(basename $<).o mod
 
 
+
 # Directories
 mod:
-	mkdir -p mod
+	mkdir mod
 
 bin:
-	mkdir -p bin
+	mkdir bin
 
-# Extra
-exec: bin/01_hipoteca
-	$< >out/hipoteca.txt
+# Utilities
+exec: bin/main
+	$<
 
 up:
-	make clean
 	git add .
 	git commit
 	git push origin main

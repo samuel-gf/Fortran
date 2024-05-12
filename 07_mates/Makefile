@@ -1,11 +1,13 @@
 FC = ifx
-SRC = $(wildcard *.f90)
-TARGETS = $(addprefix bin/,$(SRC:.f90=))
+SRC=$(notdir $(wildcard src/[0-9]*.f90))
+TGT=$(addprefix bin/,$(basename $(SRC)))
 ARGS=-fopenmp -warn all
 
-all: bin out $(TARGETS)
+.PHONY: exec
 
-bin/%: %.f90
+all: bin out $(TGT)
+
+bin/%: src/%.f90
 	@mkdir -p $(dir $@)
 	@expand -t4 $< | sponge $<
 	$(FC) $(ARGS) -o $@ $<

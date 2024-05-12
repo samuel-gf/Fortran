@@ -20,13 +20,15 @@ program aoc_01b
     line = trim(line_original)
 
     linea: do
-        replace: do
+        replace_forward: do
             b_exit = .true.
             ! Find the first position of each number in the input line
-            busca: do i=1, size(num) 
+            ! pos(1) = «position of one»
+            ! pos(2) = «position of two»
+            search: do i=1, size(num) 
                 pos(i) = str_find(trim(num(i)), line)
                 if (pos(i) .ne. -1) b_exit = .false.
-            end do busca
+            end do search
 
             if (b_exit) exit replace
 
@@ -43,7 +45,7 @@ program aoc_01b
                 end if
             end do first_pos
             line = str_replace(trim(num(k)), num2str(k), line)
-        end do replace
+        end do replace_forward
 
         ! Process each line character by character.
         caracter: do i=1, len(trim(line))
