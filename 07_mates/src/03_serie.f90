@@ -11,17 +11,17 @@ program serie
 
 
     ! Cabecera
-    write (*, "(a1, 1a163)") " ", repeat("-", 164)
-    write (*, "(a4)", advance="no") "n"
+    write (*, "(a1, 1a164)") " ", repeat("-", 164)
+    write (*, "(a5)", advance="no") "n"
     do i = 1, N_s                                          ! Muestra en la cabecera ' a_n (x=0.5)    Suma (x=0.5) '
         write (*, "(2(a15, f4.2, a1))", advance="no") "a_n (x=", x(i), ")", "Suma (x=", x(i), ")"
     end do
     write (*, *)
-    write (*, "(a1, 1a163)") " ", repeat("-", 164)
+    write (*, "(a1, 1a164)") " ", repeat("-", 164)
 
     ! Bucle principal
     do n = 1, N_iteraciones
-        write (*, "(i4)", advance="no") n
+        write (*, "(i5)", advance="no") n
         do i = 1, 4
             a_n(i) = termino(n, x(i))
             S(i) = S(i) + a_n(i)
@@ -29,7 +29,11 @@ program serie
         end do
         write (*, *)
     end do
-    write (*, "(a1, 1a163)") " ", repeat("-", 164)
+
+    ! Cierre
+    write (*, "(a1, 1a164)") " ", repeat("-", 164)
+
+
 
 contains
 
