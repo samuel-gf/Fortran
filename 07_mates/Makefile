@@ -10,6 +10,7 @@ all: bin out $(TGT)
 bin/%: src/%.f90
 	@mkdir -p $(dir $@)
 	@expand -t4 $< | sponge $<
+	cat $< | ./alinear_comentarios.sh | sponge $<
 	$(FC) $(ARGS) -o $@ $<
 
 bin:
