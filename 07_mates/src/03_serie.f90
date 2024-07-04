@@ -2,29 +2,25 @@ program serie
     use iso_fortran_env
     implicit none
 
-    ! Sea 'N_s' es el número de series
-    ! 'n' es el índice: 1, 2, 3, ...
-    ! 'a_n' es cada uno de los términos
-    ! 'S' es la suma de cada serie
-
-    integer, parameter:: N_s = 4 
-    integer :: n                
-    integer :: i               
-    real :: a_n(N_s), S(N_s)  
-    real :: x(N_s) = [0.0, 0.5, 1.0, 2.0]
+    integer, parameter:: N_s = 4                           ! Número de series (columnas)
+    integer, parameter:: N_iteraciones = 100               ! Número de iteraciones (máximo valor de n)
+    integer :: n                                           ! Índice de términos: 1, 2, 3, 4, ... 
+    integer :: i                                           ! Índice de series (su valor máximo es N_s)
+    real :: a_n(N_s), S(N_s)                               ! Array con cada uno de los términos y cada una de las sumas
+    real :: x(N_s) = [0.0, 0.5, 1.0, 2.0]                  ! Valor de x para cada serie
 
 
     ! Cabecera
     write (*, "(a1, 1a163)") " ", repeat("-", 164)
     write (*, "(a4)", advance="no") "n"
-    do i = 1, N_s
+    do i = 1, N_s                                          ! Muestra en la cabecera ' a_n (x=0.5)    Suma (x=0.5) '
         write (*, "(2(a15, f4.2, a1))", advance="no") "a_n (x=", x(i), ")", "Suma (x=", x(i), ")"
     end do
     write (*, *)
     write (*, "(a1, 1a163)") " ", repeat("-", 164)
 
     ! Bucle principal
-    do n = 1, 40
+    do n = 1, N_iteraciones
         write (*, "(i4)", advance="no") n
         do i = 1, 4
             a_n(i) = termino(n, x(i))
@@ -37,6 +33,7 @@ program serie
 
 contains
 
+    ! Calcula un término de la serie
     real pure elemental function termino(n, x)
         real, intent(in):: x
         integer, intent(in):: n
